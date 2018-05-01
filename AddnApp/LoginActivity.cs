@@ -3,6 +3,7 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 using Android.Support.V7.App;
+using Oracle.ManagedDataAccess.Client;
 
 namespace AddnApp
 {
@@ -55,6 +56,44 @@ namespace AddnApp
                 ad.SetMessage(description);
                 ad.Show();
             });
+        }
+
+
+        public void Login()
+        {
+            string conString = "User Id=multgestor_addn;Password=mult;Data Source=192.168.33.104:1521/xe;";
+            using (OracleConnection con = new OracleConnection(conString))
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    try
+                    {
+                        con.Open();
+                        cmd.BindByName = true;
+
+                        //Use the command to display employee names from 
+                        // the EMPLOYEES table
+                        cmd.CommandText = "select registro from tequipamentos where registro = :id";
+
+                        // Assign id to the department number 50 
+                        OracleParameter id = new OracleParameter("id", 50);
+                        cmd.Parameters.Add(id);
+
+                        //Execute the command and use DataReader to display the data
+                        OracleDataReader reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            //await context.Response.WriteAsync("Employee First Name: " + reader.GetString(0) + "\n");
+                        }
+
+                        reader.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        //await context.Response.WriteAsync(ex.Message);
+                    }
+                }
+            }
         }
     }
 }

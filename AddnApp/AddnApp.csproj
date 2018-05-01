@@ -242,16 +242,16 @@
     <AndroidResource Include="Resources\drawable\ic_menu.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Damage_Step_Fragment.xml" />
+    <AndroidResource Include="Resources\layout\CadastroRR_Fragment.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Damage_Step_Image_Fragment.xml" />
+    <AndroidResource Include="Resources\layout\CadastroRR_Imagem_Fragment.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Damage_Step_NoteAndConfirm_Fragment.xml" />
+    <AndroidResource Include="Resources\layout\CadastroRR_Confirmar_Fragment.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Damage_Step_Tag_Fragment.xml" />
+    <AndroidResource Include="Resources\layout\CadastroRR_Registro_Fragment.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\config.png" />

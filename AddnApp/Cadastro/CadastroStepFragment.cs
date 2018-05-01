@@ -23,14 +23,21 @@ namespace AddnApp.Cadastro
 
         private bool CanFileDamage = true;
 
+<<<<<<< .merge_file_a02056
         protected override string FragmentTitle => Resources.GetString(Resource.String.VolumeDamageStepFragmentTitle);
 
         protected override int ViewId => Resource.Layout.Damage_Step_Fragment;
+=======
+        protected override string FragmentTitle => "Cadastro de RR";
+
+        protected override int ViewId => Resource.Layout.CadastroRR_Fragment;
+>>>>>>> .merge_file_a12108
 
         protected override void InitializeComponents()
         {
             this.SetMainTitle();
 
+<<<<<<< .merge_file_a02056
             ProgressBar = FindViewById<ProgressBar>(Resource.Damage_step.progressBar);
             BtnBack = FindViewById<Button>(Resource.Damage_step.btnBack);
             BtnBack.Click += BtnBack_Click;
@@ -38,6 +45,15 @@ namespace AddnApp.Cadastro
             BtnNext.Click += BtnNext_Click;
             TxtSteps = FindViewById<TextView>(Resource.Damage_step.txtSteps);
             ContainerId = Resource.Damage_step.container;
+=======
+            ProgressBar = FindViewById<ProgressBar>(Resource.CadastroRR.progressBar);
+            BtnBack = FindViewById<Button>(Resource.CadastroRR.btnBack);
+            BtnBack.Click += BtnBack_Click;
+            BtnNext = FindViewById<Button>(Resource.CadastroRR.btnNext);
+            BtnNext.Click += BtnNext_Click;
+            TxtSteps = FindViewById<TextView>(Resource.CadastroRR.txtSteps);
+            ContainerId = Resource.CadastroRR.container;
+>>>>>>> .merge_file_a12108
         }
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -60,6 +76,7 @@ namespace AddnApp.Cadastro
         {
             if (Data != null)
             {
+<<<<<<< .merge_file_a02056
                 if (string.IsNullOrEmpty(damageItem.TagNumber))
                 {
                     Program.Main.ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentProvideTag), ToastLength.Long);
@@ -124,6 +141,9 @@ namespace AddnApp.Cadastro
 
                         CanFileDamage = true;
                     }).Execute();
+=======
+
+>>>>>>> .merge_file_a12108
             }
         }
     }

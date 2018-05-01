@@ -1,9 +1,8 @@
 ﻿using Android.OS;
 using System;
 
-namespace AddnApp.Cadastro
+namespace AddnApp.Helpers
 {
-
     public class GenericTask : AsyncTask
     {
         public Action<Bundle> PreExecuteAction;

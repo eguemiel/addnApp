@@ -4,7 +4,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 
-namespace AddnApp.Cadastro
+namespace AddnApp.Base
 {
     public abstract class BaseWizardFragment : BaseFragment
     {

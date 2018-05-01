@@ -1,4 +1,5 @@
 ﻿using AddnApp.Base;
+using AddnApp.Interfaces;
 using Android.Content;
 
 namespace AddnApp.Cadastro

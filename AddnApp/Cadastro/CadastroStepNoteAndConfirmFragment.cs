@@ -7,7 +7,7 @@ namespace AddnApp.Cadastro
 {
     public class DamageStepNoteAndConfirmFragment : BaseWizardStepFragment
     {
-        protected override int ViewId => Resource.Layout.Damage_Step_NoteAndConfirm_Fragment;
+        protected override int ViewId => Resource.Layout.CadastroRR_Confirmar_Fragment;
 
         private EditText txtDamageNote;
 

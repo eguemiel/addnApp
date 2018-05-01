@@ -79,12 +79,12 @@ namespace AddnApp.Cadastro
                     break;
             }
 
-            imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
+            //imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
         }
 
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
         {
-            menu.Add(Menu.None, 1001, 1, Resources.GetString(Resource.String.VolumeDamageStepImageFragmentRemoveImage));
+            menu.Add(Menu.None, 1001, 1, "Cadastro de RR");
 
             base.OnCreateContextMenu(menu, v, menuInfo);
         }
@@ -99,8 +99,8 @@ namespace AddnApp.Cadastro
             switch (mi.ItemId)
             {
                 case 1001:
-                    Item.ImageList.RemoveAt(selectedItemMn);
-                    imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
+               //     Item.ImageList.RemoveAt(selectedItemMn);
+              //      imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
                     break;
             }
 

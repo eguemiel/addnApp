@@ -3,7 +3,7 @@ using Android.Content;
 
 namespace AddnApp.Cadastro
 {
-    public abstract class DamageBaseFragment : BaseFragment
+    public abstract class CadastroBaseFragment : BaseFragment
     {
         protected IAddnAppActivity currentActivity;
 

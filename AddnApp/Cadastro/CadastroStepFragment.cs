@@ -3,6 +3,8 @@ using System.Linq;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using AddnApp.Base;
+using AddnApp.Helpers;
 
 namespace AddnApp.Cadastro
 {
@@ -58,8 +60,6 @@ namespace AddnApp.Cadastro
         {
             if (Data != null)
             {
-                DamageItem damageItem = (DamageItem)Data;
-
                 if (string.IsNullOrEmpty(damageItem.TagNumber))
                 {
                     Program.Main.ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentProvideTag), ToastLength.Long);

@@ -1,9 +1,7 @@
 ﻿using Android.OS;
 using Android.Views;
-using Android.Widget;
-using System.Linq;
-using System.Threading.Tasks;
-using Android.Support.V7.Widget;
+using AddnApp.Base;
+using AddnApp.Helpers;
 
 namespace AddnApp.Cadastro
 {

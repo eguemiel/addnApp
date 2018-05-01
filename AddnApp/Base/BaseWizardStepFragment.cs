@@ -1,8 +1,7 @@
-﻿using AddnApp.Base;
-using Android.App;
+﻿using Android.App;
 using System;
 
-namespace AddnApp.Cadastro
+namespace AddnApp.Base
 {
     public class BaseWizardStepFragment : BaseFragment
     {

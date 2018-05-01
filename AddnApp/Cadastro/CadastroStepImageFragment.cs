@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System;
 using Android.Provider;
 using Android.App;
-using System.Linq;
+using AddnApp.Base;
 
 namespace AddnApp.Cadastro
 {

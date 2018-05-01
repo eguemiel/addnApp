@@ -1,7 +1,7 @@
 ﻿using AddnApp.Base;
 using Android.App;
 
-namespace AddnApp.Cadastro
+namespace AddnApp.Interfaces
 {
     public interface IAddnAppActivity
     {

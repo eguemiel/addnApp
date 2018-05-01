@@ -9,7 +9,7 @@ using Android.Views;
 namespace AddnApp
 {
     [Activity(Label = "AddnApp",  Theme = "@style/AppTheme")]
-    public class MainActivity : AppCompatActivity
+    public class MainActivity : ADDNAbstractActivity
     {
         public ViewGroup Loading { get; set; }
         DrawerLayout drawerLayout;

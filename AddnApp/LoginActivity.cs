@@ -7,7 +7,7 @@ using Android.Support.V7.App;
 namespace AddnApp
 {
     [Activity(ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, MainLauncher =true, Theme = "@style/AppTheme")]
-    public class LoginActivity : AppCompatActivity
+    public class LoginActivity : ADDNAbstractActivity
     {
         public EditText EditUser { get; set; }
         public EditText EditSenha { get; set; }

@@ -79,20 +79,14 @@ namespace AddnApp.Cadastro
                     break;
             }
 
-<<<<<<< .merge_file_a15424
-            imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
-=======
+
             //imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
->>>>>>> .merge_file_a04240
         }
 
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
         {
-<<<<<<< .merge_file_a15424
-            menu.Add(Menu.None, 1001, 1, Resources.GetString(Resource.String.VolumeDamageStepImageFragmentRemoveImage));
-=======
+
             menu.Add(Menu.None, 1001, 1, "Cadastro de RR");
->>>>>>> .merge_file_a04240
 
             base.OnCreateContextMenu(menu, v, menuInfo);
         }
@@ -107,13 +101,9 @@ namespace AddnApp.Cadastro
             switch (mi.ItemId)
             {
                 case 1001:
-<<<<<<< .merge_file_a15424
-                    Item.ImageList.RemoveAt(selectedItemMn);
-                    imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
-=======
+
                //     Item.ImageList.RemoveAt(selectedItemMn);
               //      imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
->>>>>>> .merge_file_a04240
                     break;
             }
 

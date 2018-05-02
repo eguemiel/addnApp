@@ -12,7 +12,7 @@
        android:id="@+id/main_container"
        android:orientation="vertical"
        android:layout_width="match_parent"
-       android:background="@color/colorPrimary"
+       android:background="@color/white"
        android:layout_height="match_parent">
 
   </LinearLayout>

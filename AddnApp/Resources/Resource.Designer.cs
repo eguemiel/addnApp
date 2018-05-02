@@ -1472,31 +1472,9 @@ namespace AddnApp
 			}
 		}
 		
-		public partial class Cadastro
-		{
-			
-<<<<<<< .merge_file_a11940
-			// aapt resource value: 0x7f120001
-			public const int foto_equipamento = 2131886081;
-			
-			// aapt resource value: 0x7f120000
-			public const int galeria_equipamento = 2131886080;
-			
-			static Cadastro()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Cadastro()
-			{
-			}
-		}
-		
 		public partial class Color
 		{
 			
-=======
->>>>>>> .merge_file_a12968
 			// aapt resource value: 0x7f0c004e
 			public const int abc_background_cache_hint_selector_material_dark = 2131492942;
 			
@@ -1812,34 +1790,6 @@ namespace AddnApp
 			}
 			
 			private Color()
-			{
-			}
-		}
-		
-		public partial class Damage_step
-		{
-			
-			// aapt resource value: 0x7f100002
-			public const int btnBack = 2131755010;
-			
-			// aapt resource value: 0x7f100004
-			public const int btnNext = 2131755012;
-			
-			// aapt resource value: 0x7f100001
-			public const int container = 2131755009;
-			
-			// aapt resource value: 0x7f100003
-			public const int progressBar = 2131755011;
-			
-			// aapt resource value: 0x7f100000
-			public const int txtSteps = 2131755008;
-			
-			static Damage_step()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Damage_step()
 			{
 			}
 		}
@@ -3367,13 +3317,8 @@ namespace AddnApp
 			// aapt resource value: 0x7f0800bc
 			public const int cancel_action = 2131230908;
 			
-<<<<<<< .merge_file_a11940
-			// aapt resource value: 0x7f080088
-			public const int cardView = 2131230856;
-=======
 			// aapt resource value: 0x7f080087
 			public const int cardView = 2131230855;
->>>>>>> .merge_file_a12968
 			
 			// aapt resource value: 0x7f080030
 			public const int center = 2131230768;
@@ -4099,18 +4044,6 @@ namespace AddnApp
 			public const int CadastroRR_Confirmar_Fragment = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-<<<<<<< .merge_file_a11940
-			public const int Damage_Step_Fragment = 2130903071;
-			
-			// aapt resource value: 0x7f030020
-			public const int Damage_Step_Image_Fragment = 2130903072;
-			
-			// aapt resource value: 0x7f030021
-			public const int Damage_Step_NoteAndConfirm_Fragment = 2130903073;
-			
-			// aapt resource value: 0x7f030022
-			public const int Damage_Step_Tag_Fragment = 2130903074;
-=======
 			public const int CadastroRR_Fragment = 2130903071;
 			
 			// aapt resource value: 0x7f030020
@@ -4121,7 +4054,6 @@ namespace AddnApp
 			
 			// aapt resource value: 0x7f030022
 			public const int content_main = 2130903074;
->>>>>>> .merge_file_a12968
 			
 			// aapt resource value: 0x7f030023
 			public const int design_bottom_navigation_item = 2130903075;
@@ -5686,49 +5618,6 @@ namespace AddnApp
 			}
 			
 			private Style()
-			{
-			}
-		}
-		
-		public partial class Volume
-		{
-			
-			// aapt resource value: 0x7f110008
-			public const int damageCam_CamInfoCont = 2131820552;
-			
-			// aapt resource value: 0x7f110007
-			public const int damageCam_Laser = 2131820551;
-			
-			// aapt resource value: 0x7f110004
-			public const int damageCam_txtTag = 2131820548;
-			
-			// aapt resource value: 0x7f110005
-			public const int damageCargView = 2131820549;
-			
-			// aapt resource value: 0x7f110009
-			public const int damageMan_Cont = 2131820553;
-			
-			// aapt resource value: 0x7f110006
-			public const int damageScan_Cont = 2131820550;
-			
-			// aapt resource value: 0x7f110001
-			public const int damage_txtInfoAwb = 2131820545;
-			
-			// aapt resource value: 0x7f110000
-			public const int damage_txtInfoTag = 2131820544;
-			
-			// aapt resource value: 0x7f110003
-			public const int damage_txtNote = 2131820547;
-			
-			// aapt resource value: 0x7f110002
-			public const int gridview_ItemDamage = 2131820546;
-			
-			static Volume()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Volume()
 			{
 			}
 		}

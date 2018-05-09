@@ -54,6 +54,9 @@
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.5.1.444934\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:\DEVPRO\AgendaCCB\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=2.0.12.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.Core.2.12.0-beta2\lib\netstandard2.0\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
@@ -136,10 +139,10 @@
     <Compile Include="Base\BaseWizardFragment.cs" />
     <Compile Include="Base\BaseWizardStepFragment.cs" />
     <Compile Include="Base\CadastroBaseFragment.cs" />
-    <Compile Include="Cadastro\CadastroStepFragment.cs" />
-    <Compile Include="Cadastro\CadastroStepImageFragment.cs" />
+    <Compile Include="Cadastro\CadastroRRFragment.cs" />
+    <Compile Include="Cadastro\CadastroRRImagemFragment.cs" />
     <Compile Include="Cadastro\CadastroStepNoteAndConfirmFragment.cs" />
-    <Compile Include="Cadastro\CadastroStepTagFragment.cs" />
+    <Compile Include="Cadastro\CadastroRRIdentificacaoFragment.cs" />
     <Compile Include="Helpers\GenericTask.cs" />
     <Compile Include="Interfaces\IAddnAppActivity.cs" />
     <Compile Include="Base\ImageDetailDamageActivity.cs" />
@@ -576,6 +579,17 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_warning_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Configuration.xml">
+      <SubType>Designer</SubType>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.AddApp.Mobile.Api\Framework.AddApp.Mobile.csproj">
+      <Project>{35C4E728-4FD4-4A62-A7B0-12EB33344917}</Project>
+      <Name>Framework.AddApp.Mobile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Compat.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Compat.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets')" />

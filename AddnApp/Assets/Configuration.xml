@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <add key="ApiUrl" value="177.185.59.10:1521/xe"></add>
+  <add key="UserId" value="multgestor_addn"></add>
+  <add key="Password" value="mult"></add>
+</settings>

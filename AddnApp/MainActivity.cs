@@ -5,6 +5,8 @@ using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Views;
+using System;
+using AddnApp.Cadastro;
 
 namespace AddnApp
 {
@@ -15,8 +17,6 @@ namespace AddnApp
         DrawerLayout drawerLayout;
         NavigationView navigationView;
         private Android.Support.V7.Widget.Toolbar toolbar;
-        private Spinner toolbarSpinner;
-        private TableRow toolbarControls;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -36,8 +36,29 @@ namespace AddnApp
 
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            toolbarSpinner = FindViewById<Spinner>(Resource.Id.toolbar_spinner);
-            toolbarControls = FindViewById<TableRow>(Resource.Id.toolbar_controls);
+
+            navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
+        }
+
+        private void NavigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
+        {
+            drawerLayout.CloseDrawer(Android.Support.V4.View.GravityCompat.Start);
+
+            switch (e.MenuItem.ItemId)
+            {
+                case Resource.Id.nav_cadastrorr:
+                    this.Navigate<CadastroRRFragment>();
+                    break;
+                case Resource.Id.nav_sair:
+                 StartActivity(typeof(LoginActivity));
+                    Finish();
+                    break;
+                case Resource.Id.nav_fechar:
+                    Finish();
+                    break;
+                default:
+                    break;
+            }
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

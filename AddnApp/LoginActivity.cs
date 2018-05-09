@@ -4,6 +4,11 @@ using Android.OS;
 using Android.Widget;
 using Android.Support.V7.App;
 using Oracle.ManagedDataAccess.Client;
+using Android.Views;
+using AddnApp.Helpers;
+using Framework.AddApp.Mobile.Api.Configuration;
+using Framework.AddApp.Mobile.ApiClient;
+using Framework.AddApp.Mobile.ApiModels;
 
 namespace AddnApp
 {
@@ -18,6 +23,11 @@ namespace AddnApp
         {
             base.OnCreate(savedInstanceState);
 
+            using (var stream = Assets.Open("Configuration.xml"))
+            {
+                AddnAppConfiguration.Instance.ReadFromXml(stream);
+            }
+
             // Create your application here
             SetContentView(Resource.Layout.login);
 
@@ -25,27 +35,52 @@ namespace AddnApp
             EditSenha=FindViewById<EditText>(Resource.Id.txtSenha);
             BtnAcessar=FindViewById<Button>(Resource.Id.btnAcessar);
             BtnAcessar.Click += BtnAcessar_Click;
+
+            Loading = FindViewById<ViewGroup>(Resource.Id.loading);
         }
 
         private void BtnAcessar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(EditUser.Text) || string.IsNullOrEmpty(EditSenha.Text))
-            {
-                if (string.IsNullOrEmpty(EditUser.Text))
-                    EditUser.Error = "Favor digitar o usuário";
+            var task = new GenericTask()
+                    .WithPreExecuteProcess((b) =>
+                    {
+                        Loading.Visibility = ViewStates.Visible;
 
-                if (string.IsNullOrEmpty(EditSenha.Text))
-                    EditSenha.Error = "Favor digitar a senha";
-                
-                if (EditUser.Text != "junior" && EditSenha.Text != "1234")
-                    ShowError("Usuário ou senha inválidos");
-            }
-            else
-            {
-                StartActivity(typeof(MainActivity));
-                Finish();
-            }
-        }
+                    }).WithBackGroundProcess((b, t) =>
+                    {
+                        try
+                        {
+                            if (string.IsNullOrEmpty(EditUser.Text) || string.IsNullOrEmpty(EditSenha.Text))
+                            {
+                                if (string.IsNullOrEmpty(EditUser.Text))
+                                    RunOnUiThread(() => { EditUser.Error = "Favor digitar o usuário"; });
+
+                                if (string.IsNullOrEmpty(EditSenha.Text))
+                                    RunOnUiThread(() => { EditSenha.Error = "Favor digitar a senha"; });                                
+                            }
+                            else
+                            {
+                                if (Login(EditUser.Text, EditSenha.Text))
+                                {
+                                    StartActivity(typeof(MainActivity));
+                                    Finish();
+                                }
+                                else
+                                {
+                                    ShowError("Usuário ou senha inválidos");
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowError(ex.Message);
+                        }
+                    }).WithPosExecuteProcess((b, t) =>
+                    {
+                        Loading.Visibility = ViewStates.Gone;
+                    }).Execute();            
+            
+        }       
 
         public void ShowError(string description)
         {
@@ -59,40 +94,26 @@ namespace AddnApp
         }
 
 
-        public void Login()
+        public bool Login(string usuario, string senha)
         {
-            string conString = "User Id=multgestor_addn;Password=mult;Data Source=192.168.33.104:1521/xe;";
-            using (OracleConnection con = new OracleConnection(conString))
+            try
             {
-                using (OracleCommand cmd = con.CreateCommand())
+
+                var response = LoginApi.Instance.SignIn(new LoginRequest()
                 {
-                    try
-                    {
-                        con.Open();
-                        cmd.BindByName = true;
+                    User = EditUser.Text,
+                    Password = EditSenha.Text,
+                    PasswordBD = ConfigurationBase.Instance.Password,
+                    Url = ConfigurationBase.Instance.ApiUrl,
+                    UserId = ConfigurationBase.Instance.UserId
+                });
 
-                        //Use the command to display employee names from 
-                        // the EMPLOYEES table
-                        cmd.CommandText = "select registro from tequipamentos where registro = :id";
-
-                        // Assign id to the department number 50 
-                        OracleParameter id = new OracleParameter("id", 50);
-                        cmd.Parameters.Add(id);
-
-                        //Execute the command and use DataReader to display the data
-                        OracleDataReader reader = cmd.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            //await context.Response.WriteAsync("Employee First Name: " + reader.GetString(0) + "\n");
-                        }
-
-                        reader.Dispose();
-                    }
-                    catch (Exception ex)
-                    {
-                        //await context.Response.WriteAsync(ex.Message);
-                    }
-                }
+                return response.Success;
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+                return false;
             }
         }
     }

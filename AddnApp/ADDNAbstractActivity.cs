@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.Support.V7.App;
+﻿using Android.Support.V7.App;
 using AddnApp.Base;
+using AddnApp.Interfaces;
+using Android.App;
+using Android.Views;
 
 namespace AddnApp
 {
-    
-    public abstract class ADDNAbstractActivity : AppCompatActivity
 
+    public abstract class ADDNAbstractActivity : AppCompatActivity, IAddnAppActivity
     {
+        public ViewGroup Loading { get; set; }
+
+        public FragmentManager GetFragmentManager()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public TFragment Navigate<TFragment>() where TFragment : BaseFragment, new()
         {
             return Navigate(new TFragment());
         }
 
-        private TFragment Navigate<TFragment>(TFragment fragment) where TFragment : BaseFragment, new()
+        public TFragment Navigate<TFragment>(TFragment fragment) where TFragment : BaseFragment, new()
         {
             var tx = SupportFragmentManager.BeginTransaction();
             tx.Replace(Resource.Id.main_container, fragment);
@@ -31,6 +29,23 @@ namespace AddnApp
             tx.Commit();
 
             return fragment;
+        }
+
+        public void SetTitle(string value)
+        {
+            this.Title = value;
+        }       
+
+        public void ShowLoading()
+        {
+            RunOnUiThread(() =>
+            Loading.Visibility = ViewStates.Visible);
+        }
+
+        public void HideLoading()
+        {
+            RunOnUiThread(() =>
+            Loading.Visibility = ViewStates.Gone);
         }
     }
 }

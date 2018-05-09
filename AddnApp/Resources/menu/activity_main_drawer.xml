@@ -5,33 +5,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_cadastrorr"
             android:icon="@drawable/ic_camera_alt_black_24dp"
-            android:title="Import" />
+            android:title="Cadastrar RR" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_sair"
             android:icon="@drawable/ic_collections_black_24dp"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_collections_black_24dp"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_collections_black_24dp"
-            android:title="Tools" />
+            android:title="Sair" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Outros">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_collections_black_24dp"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_collections_black_24dp"
-                android:title="Send" />
+          <item
+          android:id="@+id/nav_fechar"
+          android:icon="@drawable/ic_collections_black_24dp"
+          android:title="Fechar APP" />            
         </menu>
     </item>
 

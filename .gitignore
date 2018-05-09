@@ -1,5 +1,7 @@
 AddnApp/obj/
 AddnApp/bin/
+AddnApp/bin/Debug
+.vs/AddnApp/
 packages/
 AddnAppDB/obj/
 Framework.AddApp.Mobile.Api/obj/

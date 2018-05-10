@@ -5,3 +5,4 @@ AddnApp/bin/Debug
 packages/
 AddnAppDB/obj/
 Framework.AddApp.Mobile.Api/obj/
+/AddnAppDB/bin/Debug

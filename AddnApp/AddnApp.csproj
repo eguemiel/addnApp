@@ -18,7 +18,7 @@
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
@@ -143,6 +143,7 @@
     <Compile Include="Cadastro\CadastroRRImagemFragment.cs" />
     <Compile Include="Cadastro\CadastroStepNoteAndConfirmFragment.cs" />
     <Compile Include="Cadastro\CadastroRRIdentificacaoFragment.cs" />
+    <Compile Include="Configuration\AddnAppConfiguration.cs" />
     <Compile Include="Helpers\GenericTask.cs" />
     <Compile Include="Interfaces\IAddnAppActivity.cs" />
     <Compile Include="Base\ImageDetailDamageActivity.cs" />
@@ -170,16 +171,18 @@
     <AndroidResource Include="Resources\drawable\addn_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\activity_main.xml" />
+    <AndroidResource Include="Resources\layout\activity_main.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\app_bar_main.xml" />
+    <AndroidResource Include="Resources\layout\app_bar_main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\content_main.xml" />
+    <AndroidResource Include="Resources\layout\content_main.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\nav_header_main.xml" />
+    <AndroidResource Include="Resources\layout\nav_header_main.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\menu\activity_main_drawer.xml" />
@@ -245,16 +248,16 @@
     <AndroidResource Include="Resources\drawable\ic_menu.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\CadastroRR_Fragment.xml" />
+    <AndroidResource Include="Resources\layout\CadastroRR_Fragment.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\CadastroRR_Imagem_Fragment.xml" />
+    <AndroidResource Include="Resources\layout\CadastroRR_Imagem_Fragment.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\CadastroRR_Confirmar_Fragment.xml" />
+    <AndroidResource Include="Resources\layout\CadastroRR_Confirmar_Fragment.axml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\CadastroRR_Registro_Fragment.xml" />
+    <AndroidResource Include="Resources\layout\CadastroRR_Registro_Fragment.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\config.png" />

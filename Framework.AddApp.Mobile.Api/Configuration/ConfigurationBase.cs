@@ -6,7 +6,7 @@ namespace Framework.AddApp.Mobile.Api.Configuration
 {
     public abstract class ConfigurationBase
     {
-        public static ConfigurationBase Instance { get; set; }
+        public static ConfigurationBase Instance { get; protected set; }
 
         public string ApiUrl { get; private set; }
         public string UserId { get; private set; }

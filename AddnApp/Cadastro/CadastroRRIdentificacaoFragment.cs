@@ -7,7 +7,7 @@ namespace AddnApp.Cadastro
 {
     public class CadastroRRIdentificacaoFragment : BaseWizardStepFragment
     {
-        protected override int ViewId => throw new System.Exception();        
+        protected override int ViewId => Resource.Layout.CadastroRR_Registro_Fragment;        
 
         public static CadastroRRIdentificacaoFragment getInstance()
         {

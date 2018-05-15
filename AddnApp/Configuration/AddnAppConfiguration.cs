@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Framework.AddApp.Mobile.Api.Configuration;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Framework.AddApp.Mobile.Api.Configuration
+namespace AddApp.Configuration
 {
     public class AddnAppConfiguration : ConfigurationBase
     {
         private static AddnAppConfiguration _instance;
-
-        protected new static AddnAppConfiguration Instance
+        public new static AddnAppConfiguration Instance
         {
             get
             {

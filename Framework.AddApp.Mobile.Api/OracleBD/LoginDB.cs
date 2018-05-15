@@ -1,17 +1,22 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using Framework.AddApp.Mobile.ApiModels;
+using Oracle.ManagedDataAccess.Client;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 using System.Text;
 
 namespace Framework.AddApp.Mobile.OracleBD
 {
-    public static class Connection
+    public static class LoginDB
     {
         static string conString = "User Id={0};Password={1};Data Source={2};";
 
-        public static object SelectCommand(string command, string userId, string password, string url)
+        public static LoginResponse GetLogin(string command, string userId, string password, string url)
         {
+            LoginResponse login = new LoginResponse();
+
             using (OracleConnection con = new OracleConnection(string.Format(conString, userId, password, url)))
             {
                 using (OracleCommand cmd = con.CreateCommand())
@@ -32,10 +37,14 @@ namespace Framework.AddApp.Mobile.OracleBD
                         //cmd.Parameters.Add(pass);
 
                         //Execute the command and use DataReader to display the data
-                        var dataSet = cmd.ExecuteScalar();
+                        var dataSet = cmd.ExecuteReader();     
+                        
+                        if(dataSet.Read())
+                        {
+                            login.Success = dataSet.HasRows;
+                        }
 
-                        return dataSet;
-
+                        return login;
                     }
                     catch (Exception ex)
                     {
@@ -43,6 +52,6 @@ namespace Framework.AddApp.Mobile.OracleBD
                     }
                 }
             }
-        }
+        }       
     }
 }

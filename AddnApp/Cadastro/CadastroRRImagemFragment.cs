@@ -14,6 +14,8 @@ namespace AddnApp.Cadastro
 {
     public class CadastroRRImagemFragment : BaseWizardStepFragment
     {
+        protected override int ViewId => Resource.Layout.CadastroRR_Imagem_Fragment;
+
         private EditText txtTagNumber;
         private EditText txtAWBNumber;
         private GridView imageGrid;

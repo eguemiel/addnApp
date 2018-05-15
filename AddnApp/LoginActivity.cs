@@ -2,13 +2,12 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using Android.Support.V7.App;
-using Oracle.ManagedDataAccess.Client;
 using Android.Views;
 using AddnApp.Helpers;
 using Framework.AddApp.Mobile.Api.Configuration;
 using Framework.AddApp.Mobile.ApiClient;
 using Framework.AddApp.Mobile.ApiModels;
+using AddApp.Configuration;
 
 namespace AddnApp
 {
@@ -98,7 +97,6 @@ namespace AddnApp
         {
             try
             {
-
                 var response = LoginApi.Instance.SignIn(new LoginRequest()
                 {
                     User = EditUser.Text,

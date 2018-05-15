@@ -17,9 +17,8 @@ namespace Framework.AddApp.Mobile.ApiClient
         public LoginResponse SignIn(LoginRequest model)
         {
             var command = string.Format("select * from users where nome = '{0}' and senha = '{1}'", model.User, model.Password);
-            var reader = Connection.SelectCommand(command, model.UserId, model.PasswordBD, model.Url);
-
-            return new LoginResponse() { Success = reader != null };
+            var login = LoginDB.GetLogin(command, model.UserId, model.PasswordBD, model.Url);
+            return login;
         }
     }
 }

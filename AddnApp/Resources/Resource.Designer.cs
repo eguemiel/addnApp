@@ -77,10 +77,10 @@ namespace AddnApp
 		{
 			
 			// aapt resource value: 0x7f120001
-			public const int damage_txtInfoAwb = 2131886081;
+			public const int damage_txtInfoEquipamentDescription = 2131886081;
 			
 			// aapt resource value: 0x7f120000
-			public const int damage_txtInfoTag = 2131886080;
+			public const int damage_txtInfoNomeCliente = 2131886080;
 			
 			// aapt resource value: 0x7f120004
 			public const int foto_equipamento = 2131886084;
@@ -89,7 +89,7 @@ namespace AddnApp
 			public const int galeria_equipamento = 2131886083;
 			
 			// aapt resource value: 0x7f120002
-			public const int gridview_ItemDamage = 2131886082;
+			public const int gridview_ItemRR = 2131886082;
 			
 			static CadastroRR_Imagem()
 			{
@@ -104,23 +104,29 @@ namespace AddnApp
 		public partial class CadastroRR_Registro
 		{
 			
-			// aapt resource value: 0x7f130004
-			public const int damageCam_CamInfoCont = 2131951620;
-			
 			// aapt resource value: 0x7f130003
-			public const int damageCam_Laser = 2131951619;
-			
-			// aapt resource value: 0x7f130000
-			public const int damageCam_txtTag = 2131951616;
-			
-			// aapt resource value: 0x7f130001
-			public const int damageCargView = 2131951617;
-			
-			// aapt resource value: 0x7f130005
-			public const int damageMan_Cont = 2131951621;
+			public const int damageCargView = 2131951619;
 			
 			// aapt resource value: 0x7f130002
-			public const int damageScan_Cont = 2131951618;
+			public const int findRR = 2131951618;
+			
+			// aapt resource value: 0x7f130004
+			public const int txtInfoClientName = 2131951620;
+			
+			// aapt resource value: 0x7f130006
+			public const int txtInfoData = 2131951622;
+			
+			// aapt resource value: 0x7f130005
+			public const int txtInfoEquipamentDescription = 2131951621;
+			
+			// aapt resource value: 0x7f130007
+			public const int txtInfoNroNota = 2131951623;
+			
+			// aapt resource value: 0x7f130001
+			public const int txtItem = 2131951617;
+			
+			// aapt resource value: 0x7f130000
+			public const int txtRR = 2131951616;
 			
 			static CadastroRR_Registro()
 			{

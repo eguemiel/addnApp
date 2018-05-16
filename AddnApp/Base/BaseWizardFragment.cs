@@ -127,11 +127,11 @@ namespace AddnApp.Base
 
                 if (ActiveStepId == StepCount)
                 {
-                    BtnNext.Text = "Done";
+                    BtnNext.Text = "Concluir";
                 }
                 else
                 {
-                    BtnNext.Text = "Next";
+                    BtnNext.Text = "Próximo";
                 }
 
                 var tx = ChildFragmentManager.BeginTransaction();

@@ -49,6 +49,8 @@ namespace AddnApp
                     {
                         try
                         {
+                            RunOnUiThread(() => { EditUser.Text = "junior"; });
+                            RunOnUiThread(() => { EditSenha.Text = "1234"; });                            
                             if (string.IsNullOrEmpty(EditUser.Text) || string.IsNullOrEmpty(EditSenha.Text))
                             {
                                 if (string.IsNullOrEmpty(EditUser.Text))

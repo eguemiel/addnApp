@@ -14,7 +14,7 @@ namespace AddnApp.Helpers
         public Bundle currentBundle;
 
         public string ErrorMessage { get; set; }
-
+            
         public bool HasError { get; set; }
 
         public GenericTask()

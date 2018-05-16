@@ -5,6 +5,8 @@ using Android.Views;
 using Android.Widget;
 using AddnApp.Base;
 using AddnApp.Helpers;
+using AddnApp.Entities;
+using SharpCifs.Smb;
 
 namespace AddnApp.Cadastro
 {
@@ -58,73 +60,71 @@ namespace AddnApp.Cadastro
 
         public override void OnDone()
         {
-            //if (Data != null)
-            //{
-            //    if (string.IsNullOrEmpty(damageItem.TagNumber))
-            //    {
-            //        Program.Main.ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentProvideTag), ToastLength.Long);
-            //        return;
-            //    }
+            if (Data != null)
+            {
+                RegistroDeReforma registroDeReforma = (RegistroDeReforma)Data;
 
-            //    if (string.IsNullOrEmpty(damageItem.DamageNote))
-            //    {
-            //        Program.Main.ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentInsertNote), ToastLength.Long);
-            //        return;
-            //    }
+                if (string.IsNullOrEmpty(registroDeReforma.NumeroRR))
+                {
+                    //ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentProvideTag), ToastLength.Long);
+                    return;
+                }               
 
-            //    if (!damageItem.ImageList.Any())
-            //    {
-            //        Program.Main.ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentInsertImage), ToastLength.Long);
-            //        return;
-            //    }
+                if (!registroDeReforma.ListaDeImagens.Any())
+                {
+                    //Program.Main.ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentInsertImage), ToastLength.Long);
+                    return;
+                }
 
-            //    var request = new DamageCargoByTagNumberRequest();
-            //    var response = new DamageCargoByTagNumberResponse();
+                var task = new GenericTask()
+                    .WithPreExecuteProcess((b) =>
+                    {
+                        //Program.Main.ShowLoading();                      
 
-            //    if (!CanFileDamage)
-            //        return;
+                    }).WithBackGroundProcess((b, t) =>
+                    {
+                        try
+                        {
+                            InserirImagensServidor(registroDeReforma);
 
-            //    var task = new GenericTask()
-            //        .WithPreExecuteProcess((b) =>
-            //        {
-            //            CanFileDamage = false;
 
-            //            Program.Main.ShowLoading();
+                        }
+                        catch (Exception ex)
+                        {
+                            //Program.Main.ShowError(ex.Message);
+                        }
+                    }).WithPosExecuteProcess((b, t) =>
+                    {
 
-            //            request.DamageNote = damageItem.DamageNote;
-            //            request.TagNumber = damageItem.TagNumber;
+                        //Toast.MakeText(Context, response.WarningMessage, ToastLength.Short).Show();
+                        //Program.Main.HideLoading();
+                    }).Execute();
+            }
+        }
 
-            //            foreach (var item in damageItem.ImageList)
-            //                request.ImageList.Add(Helpers.ConvertToBase64String(item));
+        private void InserirImagensServidor(RegistroDeReforma registroDeReforma)
+        {
+            foreach (var item in registroDeReforma.ListaDeImagens)
+            {
+                //Remover Caracteres Especiais, Nome, NomeFantasia, Descricao do Equipamento e Cidade
+                //':','\','/','|','*','?','"','<','>','|'
+                //192.168.0.244/Clientes/Primeira Letra nome Cliente/Nome -- NomeFantasia/Unidade {Cidade}/Ano/NF NroNota R.R. NroRRConsulta DescricaoEquipamento/NomeImagem DataComUnderline
+                //Get the SmbFile specifying the file name to be created.
+                var file = new SmbFile("smb://Junior:230411.a@192.168.33.102/Code/teste.jpg");
 
-            //        }).WithBackGroundProcess((b, t) =>
-            //        {
-            //            try
-            //            {
-            //                response = DamageLogApi.Instance.IdentificationDamageCargoByTagNumber(request);
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                Program.Main.ShowError(ex.Message);
-            //            }
-            //        }).WithPosExecuteProcess((b, t) =>
-            //        {
-            //            if (response != null && response.Success)
-            //            {
-            //                Toast.MakeText(Context, Resources.GetString(Resource.String.VolumeDamageStepFragmentSuccessfully), ToastLength.Short).Show();
-            //                Program.Main.CloseSoftKeyobard();
-            //                Program.Main.Navigate<HomeFragment>();
-            //            }
-            //            else
-            //            {
-            //                if(response != null)
-            //                    Toast.MakeText(Context, response.WarningMessage, ToastLength.Short).Show();                            
-            //                Program.Main.HideLoading();
-            //            }
+                //Create file.
+                file.CreateNewFile();
 
-            //            CanFileDamage = true;
-            //        }).Execute();
-            //}
+                //Get writable stream.
+                var writeStream = file.GetOutputStream();
+
+                //Write bytes.
+                writeStream.Write(Helpers.Helpers.GetImageArray(item));
+
+                //Dispose writable stream.
+                writeStream.Dispose();
+            }
+            
         }
     }
 }

@@ -60,6 +60,9 @@
     <Reference Include="Oracle.ManagedDataAccess, Version=2.0.12.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.Core.2.12.0-beta2\lib\netstandard2.0\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
+    <Reference Include="SharpCifs.Std, Version=0.2.12.0, Culture=neutral, PublicKeyToken=7071e1dce0b7c6b0, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCifs.Std.0.2.12\lib\netstandard1.3\SharpCifs.Std.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -143,8 +146,11 @@
     <Compile Include="Cadastro\CadastroRRImagemFragment.cs" />
     <Compile Include="Cadastro\CadastroStepNoteAndConfirmFragment.cs" />
     <Compile Include="Cadastro\CadastroRRIdentificacaoFragment.cs" />
+    <Compile Include="Base\ImageAdapter.cs" />
     <Compile Include="Configuration\AddnAppConfiguration.cs" />
+    <Compile Include="Entities\RegistroDeReforma.cs" />
     <Compile Include="Helpers\GenericTask.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Interfaces\IAddnAppActivity.cs" />
     <Compile Include="Base\ImageDetailDamageActivity.cs" />
     <Compile Include="Events\EventBackPressedArgs.cs" />

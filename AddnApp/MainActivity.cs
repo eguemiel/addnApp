@@ -7,6 +7,7 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using System;
 using AddnApp.Cadastro;
+using AddnApp.Entities;
 
 namespace AddnApp
 {
@@ -47,7 +48,8 @@ namespace AddnApp
             switch (e.MenuItem.ItemId)
             {
                 case Resource.Id.nav_cadastrorr:
-                    this.Navigate<CadastroRRFragment>();
+                    var wizard = this.Navigate<CadastroRRFragment>();                     
+                    wizard.Data = new RegistroDeReforma();
                     break;
                 case Resource.Id.nav_sair:
                  StartActivity(typeof(LoginActivity));

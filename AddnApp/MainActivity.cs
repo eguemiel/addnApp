@@ -14,7 +14,6 @@ namespace AddnApp
     [Activity(Label = "AddnApp",  Theme = "@style/AppTheme")]
     public class MainActivity : ADDNAbstractActivity
     {
-        public ViewGroup Loading { get; set; }
         DrawerLayout drawerLayout;
         NavigationView navigationView;
         private Android.Support.V7.Widget.Toolbar toolbar;
@@ -23,8 +22,7 @@ namespace AddnApp
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Set our view from the "main" layout resource
+            Program.Main = this;
             SetContentView(Resource.Layout.activity_main);
             Loading = FindViewById<ViewGroup>(Resource.Id.loading);
             Loading.BringToFront();

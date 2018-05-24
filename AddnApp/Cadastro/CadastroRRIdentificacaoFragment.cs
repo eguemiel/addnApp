@@ -8,6 +8,7 @@ using Framework.AddApp.Mobile.ApiClient;
 using Framework.AddApp.Mobile.ApiModels;
 using System;
 using Framework.AddApp.Mobile.Api.Configuration;
+using AddnApp.Base.Enums;
 
 namespace AddnApp.Cadastro
 {
@@ -62,9 +63,12 @@ namespace AddnApp.Cadastro
             var task = new GenericTask()
                 .WithPreExecuteProcess((b) =>
                 {
-                   
+                    Program.Main.ShowLoading();
                 }).WithBackGroundProcess((b, t) =>
                 {
+                    try
+                    {
+                        
                     var request = new RrRequest();
                     request.Item = Convert.ToInt32(registroDeReforma.NumeroItem);
                     request.Registro = Convert.ToInt32(registroDeReforma.NumeroRR);
@@ -72,7 +76,13 @@ namespace AddnApp.Cadastro
                     request.Url = ConfigurationBase.Instance.ApiUrl;
                     request.UserId = ConfigurationBase.Instance.UserId;
                     response = RrApi.Instance.GetRr(request);
-                                                 
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Program.Main.ShowMessage("Ocorreu um erro ao buscar a RR", ToastLength.Long, ToastMessageType.Error);
+                    }
+
                 }).WithPosExecuteProcess((b, t) =>
                 {
                     if(response.Success)
@@ -84,6 +94,8 @@ namespace AddnApp.Cadastro
 
                         LoadDataRegistroDeReforma(response);
                     }
+
+                    Program.Main.HideLoading();
                 }).Execute();
         }
 

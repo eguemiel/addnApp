@@ -61,7 +61,7 @@ namespace AddnApp
                             }
                             else
                             {
-                                if (Login(EditUser.Text, EditSenha.Text))
+                                if (true)//Login(EditUser.Text, EditSenha.Text))
                                 {
                                     StartActivity(typeof(MainActivity));
                                     Finish();

@@ -18,16 +18,13 @@ namespace AddnApp.Cadastro
     public class CadastroRRImagemFragment : BaseWizardStepFragment
     {
         protected override int ViewId => Resource.Layout.CadastroRR_Imagem_Fragment;
-
-        private EditText txtTagNumber;
-        private EditText txtAWBNumber;
+        
         private GridView imageGrid;
         private FloatingActionButton btnCam;
         private FloatingActionButton btnPictureGalery;
+        public static Bitmap BitmapCadastroRR;
         private int selectedItemMn;
-        private Android.Net.Uri File;
-
-        public static List<Bitmap> bitmapList;
+        private Android.Net.Uri File;        
 
         public RegistroDeReforma Item { get { return Data as RegistroDeReforma; } }
 
@@ -47,8 +44,6 @@ namespace AddnApp.Cadastro
             btnCam = FindViewById<FloatingActionButton>(Resource.CadastroRR_Imagem.foto_equipamento);
             btnPictureGalery = FindViewById<FloatingActionButton>(Resource.CadastroRR_Imagem.galeria_equipamento);
             imageGrid = FindViewById<GridView>(Resource.CadastroRR_Imagem.gridview_ItemRR);
-
-            bitmapList = new List<Bitmap>();            
 
             imageGrid.ItemClick += ImageGrid_ItemClick;
             imageGrid.ItemLongClick += ImageGrid_ItemLongClick;
@@ -77,9 +72,9 @@ namespace AddnApp.Cadastro
 
         private void ImageGrid_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var intent = new Intent(this.Activity, typeof(ImageDetailDamageActivity));
-
-            intent.PutExtra("imagePosition", e.Position);
+            var intent = new Intent(this.Activity, typeof(ImageDetailRRActivity));
+            BitmapCadastroRR = Item.ListaDeImagens[e.Position];           
+            
             StartActivity(intent);
         }
 
@@ -93,13 +88,15 @@ namespace AddnApp.Cadastro
         {
             base.OnActivityResult(requestCode, (int)resultCode, data);
 
+            if (Item.ListaDeImagens == null)
+                Item.ListaDeImagens = new List<Bitmap>();
+
             switch (requestCode)
             {
                 case 0:
                     if (resultCode == (int)Result.Ok)
                     {
                         Item.ListaDeImagens.Add(GetImageBitmapFromUrl(File, Context));
-                        bitmapList = Item.ListaDeImagens;
                     }
 
                     break;
@@ -109,10 +106,8 @@ namespace AddnApp.Cadastro
                         if (data != null)
                         {
                             Android.Net.Uri selectedImage = data.Data;
-                            if (Item.ListaDeImagens == null)
-                                Item.ListaDeImagens = new List<Bitmap>();
+                            
                             Item.ListaDeImagens.Add(GetImageBitmapFromUrl(selectedImage, Context));
-                            bitmapList = Item.ListaDeImagens;
                         }
                     }
                     break;
@@ -138,8 +133,8 @@ namespace AddnApp.Cadastro
             {
                 case 1001:
 
-               //     Item.ImageList.RemoveAt(selectedItemMn);
-              //      imageGrid.Adapter = new ImageAdapter(Context, Item.ImageList);
+                    Item.ListaDeImagens.RemoveAt(selectedItemMn);
+                    imageGrid.Adapter = new ImageAdapter(Context, Item.ListaDeImagens);
                     break;
             }
 
@@ -199,7 +194,7 @@ namespace AddnApp.Cadastro
             if (inputStream != null)
                 inputStream.Close();
 
-            imageBitmap.Dispose();                     
+            imageBitmap.Recycle();             
 
             return compressedBitmap;
         }

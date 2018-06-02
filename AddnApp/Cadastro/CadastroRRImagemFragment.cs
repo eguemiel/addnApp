@@ -12,6 +12,8 @@ using AddnApp.Base;
 using Java.Text;
 using Java.Util;
 using AddnApp.Entities;
+using Android.Support.V4.Content;
+using Java.IO;
 
 namespace AddnApp.Cadastro
 {
@@ -22,9 +24,11 @@ namespace AddnApp.Cadastro
         private GridView imageGrid;
         private FloatingActionButton btnCam;
         private FloatingActionButton btnPictureGalery;
+        private EditText txtObservacao;
         public static Bitmap BitmapCadastroRR;
         private int selectedItemMn;
-        private Android.Net.Uri File;        
+        private Android.Net.Uri File;
+        public string CurrentPhotoPath { get; set; }
 
         public RegistroDeReforma Item { get { return Data as RegistroDeReforma; } }
 
@@ -48,6 +52,9 @@ namespace AddnApp.Cadastro
             imageGrid.ItemClick += ImageGrid_ItemClick;
             imageGrid.ItemLongClick += ImageGrid_ItemLongClick;
 
+            txtObservacao = FindViewById<EditText>(Resource.CadastroRR_Imagem.txtObservacao);
+            txtObservacao.TextChanged += TxtObservacao_TextChanged;
+
             btnCam.Click += BtnCam_Click;
             btnPictureGalery.Click += BtnPictureGalery_Click;
 
@@ -55,12 +62,25 @@ namespace AddnApp.Cadastro
             RegisterForContextMenu(imageGrid);
         }
 
+        private void TxtObservacao_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            var editText = (EditText)sender;
+            Item.Observacao = editText.Text;
+        }
+
         private void BtnCam_Click(object sender, EventArgs e)
-        {   
-            Intent takePicture = new Intent(MediaStore.ActionImageCapture);
-            File = Android.Net.Uri.FromFile(GetOutputMediaFile());
-            takePicture.PutExtra(MediaStore.ExtraOutput, File);
-            StartActivityForResult(takePicture, 0);
+        {
+            try
+            {
+                Intent takePicture = new Intent(MediaStore.ActionImageCapture);
+                File = FileProvider.GetUriForFile(Context, Context.ApplicationInfo.PackageName + ".provider", GetOutputMediaFile());
+                takePicture.PutExtra(MediaStore.ExtraOutput, File);
+                StartActivityForResult(takePicture, 0);
+            }
+            catch (Exception ex)
+            {
+                Program.Main.ShowMessage(ex.Message, ToastLength.Long, Base.Enums.ToastMessageType.Error);
+            }
         }
 
 
@@ -143,20 +163,19 @@ namespace AddnApp.Cadastro
 
         public Java.IO.File GetOutputMediaFile()
         {
-            Java.IO.File mediaStorageDir = new Java.IO.File(Android.OS.Environment.GetExternalStoragePublicDirectory(
-                    Android.OS.Environment.DirectoryPictures), "CameraDemo");
-
-            if (!mediaStorageDir.Exists())
-            {
-                if (!mediaStorageDir.Mkdirs())
-                {
-                    return null;
-                }
-            }
-
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").Format(new Date());
-            return new Java.IO.File(mediaStorageDir.Path + Java.IO.File.Separator +
-                        "IMG_" + timeStamp + ".jpg");
+            String imageFileName = "JPEG_" + timeStamp + "_";
+            File storageDir = new File(Android.OS.Environment.GetExternalStoragePublicDirectory(
+                    Android.OS.Environment.DirectoryDcim), "Camera");
+            File image = Java.IO.File.CreateTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+
+            // Save a file: path for use with ACTION_VIEW intents
+            CurrentPhotoPath = "file:" + image.AbsolutePath;
+            return image;
         }
 
         public Bitmap GetImageBitmapFromUrl(Android.Net.Uri uri, Context ctx)
@@ -172,13 +191,13 @@ namespace AddnApp.Cadastro
 
             if (imageBitmap.Width > imageBitmap.Height)
             {
-                width = 1280;
-                height = 720;
+                width = 1920;
+                height = 1080;
             }
             else
             {
-                width = 720;
-                height = 1280;
+                width = 1080;
+                height = 1920;
             }
 
             imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, width, height, true);

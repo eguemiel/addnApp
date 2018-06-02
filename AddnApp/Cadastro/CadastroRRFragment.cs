@@ -7,6 +7,9 @@ using AddnApp.Base;
 using AddnApp.Helpers;
 using AddnApp.Entities;
 using SharpCifs.Smb;
+using Framework.AddApp.Mobile.ApiClient;
+using Framework.AddApp.Mobile.ApiModels;
+using Framework.AddApp.Mobile.Api.Configuration;
 
 namespace AddnApp.Cadastro
 {
@@ -21,8 +24,6 @@ namespace AddnApp.Cadastro
                 new CadastroRRImagemFragment()
             };
         }
-
-        private bool CanFileDamage = true;
 
         protected override string FragmentTitle => "Cadastro de RR";
 
@@ -66,38 +67,65 @@ namespace AddnApp.Cadastro
 
                 if (string.IsNullOrEmpty(registroDeReforma.NumeroRR))
                 {
-                    //ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentProvideTag), ToastLength.Long);
+                    Program.Main.ShowMessage("Favor inserir um Registro de Reforma (RR)");
                     return;
                 }               
 
-                if (!registroDeReforma.ListaDeImagens.Any())
+                if ((registroDeReforma.ListaDeImagens == null || !registroDeReforma.ListaDeImagens.Any()) && string.IsNullOrWhiteSpace(registroDeReforma.Observacao))
                 {
-                    //Program.Main.ShowMessage(Resources.GetString(Resource.String.VolumeDamageStepFragmentInsertImage), ToastLength.Long);
+                    Program.Main.ShowMessage("É necessário inserir ao menos uma imagem ou uma observação para continuar");
                     return;
                 }
 
                 var task = new GenericTask()
                     .WithPreExecuteProcess((b) =>
                     {
-                        //Program.Main.ShowLoading();                      
+                        Program.Main.ShowLoading();                      
 
                     }).WithBackGroundProcess((b, t) =>
                     {
                         try
                         {
-                            InserirImagensServidor(registroDeReforma);
+                            if(registroDeReforma.ListaDeImagens != null && registroDeReforma.ListaDeImagens.Any())
+                                InserirImagensServidor(registroDeReforma);
 
+                            if (!string.IsNullOrWhiteSpace(registroDeReforma.Observacao))
+                            {
+                                var request = new ObservationRequest();
+                                request.Item = Convert.ToInt32(registroDeReforma.NumeroItem);
+                                request.Registro = Convert.ToInt32(registroDeReforma.NumeroRR);
+                                request.PasswordBD = ConfigurationBase.Instance.PasswordBD;
+                                request.Url = ConfigurationBase.Instance.ApiUrl;
+                                request.UserId = ConfigurationBase.Instance.UserIdBD;
 
+                                var observationResponse = RrApi.Instance.GetIdObservacao(request);
+
+                                if (observationResponse.Success)
+                                {
+                                    var idObservation = observationResponse.IdObservation + 1;
+
+                                    request.Texto = registroDeReforma.Observacao;
+                                    request.Usuario = ConfigurationBase.Instance.UserAPP;
+                                    request.IdObservacao = idObservation;
+
+                                    var responseObservacao = RrApi.Instance.InsertObservacao(request);
+                                    if (!responseObservacao)
+                                        throw new Exception("Ocorreu um erro ao inserir informações de observação");
+                                }
+                                else
+                                    throw new Exception("Ocorreu um erro ao buscar informações da obseração");
+                            }
                         }
                         catch (Exception ex)
                         {
-                            //Program.Main.ShowError(ex.Message);
+                            Program.Main.ShowMessage(ex.Message, ToastLength.Long, Base.Enums.ToastMessageType.Error);
                         }
                     }).WithPosExecuteProcess((b, t) =>
                     {
-
-                        //Toast.MakeText(Context, response.WarningMessage, ToastLength.Short).Show();
-                        //Program.Main.HideLoading();
+                        var wizard = Program.Main.Navigate<CadastroRRFragment>();
+                        wizard.Data = new RegistroDeReforma();
+                        Program.Main.ShowMessage("Cadastros de imagens realizado com sucesso", ToastLength.Long, Base.Enums.ToastMessageType.Success);
+                        Program.Main.HideLoading();                        
                     }).Execute();
             }
         }
@@ -107,12 +135,36 @@ namespace AddnApp.Cadastro
             foreach (var item in registroDeReforma.ListaDeImagens)
             {
                 //Remover Caracteres Especiais, Nome, NomeFantasia, Descricao do Equipamento e Cidade
-                //':','\','/','|','*','?','"','<','>','|'
-                //192.168.0.244/Clientes/Primeira Letra nome Cliente/Nome -- NomeFantasia/Unidade {Cidade}/Ano/NF NroNota R.R. NroRRConsulta DescricaoEquipamento/NomeImagem DataComUnderline
+                //
+                //Primeira Letra nome Cliente/Nome -- 
+                //NomeFantasia /Unidade {Cidade}/Ano/NF NroNota R.R. NroRRConsulta DescricaoEquipamento/
+                //NomeImagem DataComUnderline
                 //Get the SmbFile specifying the file name to be created.
-                var file = new SmbFile("smb://Junior:230411.a@192.168.33.102/Code/teste.jpg");
+
+                var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
+                var fullClientName = registroDeReforma.NomeCliente;
+                var apelido = registroDeReforma.NomeFantasia;
+                var cityName = registroDeReforma.Cidade;
+                var dateRR = DateTime.Parse(registroDeReforma.DataCadastro);
+                var nf = registroDeReforma.NotaFiscal;
+                var rr = registroDeReforma.DescricaoRR;
+                var eqDesc = registroDeReforma.Equipamento;
+
+                var smbPath = "smb://192.168.0.244/Clientes/";
+                var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}",
+                                            firstLetterClient, fullClientName, apelido,
+                                            cityName, dateRR.Year, nf, rr, eqDesc );
+
+                var fileName = string.Format("{0}.{1}",DateTime.Now.ToString().Replace('/','_').Replace(':','_').Replace(' ', '_'),"jpg");
+
+                var auth2 = new NtlmPasswordAuthentication("addnbr", "suporte", "@master01");
+                var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
 
                 //Create file.
+                if (!pathConfirm.Exists())
+                    pathConfirm.Mkdirs();
+
+                var file = new SmbFile(string.Format("{0}/{1}/{2}", smbPath, filePath, fileName), auth2);
                 file.CreateNewFile();
 
                 //Get writable stream.

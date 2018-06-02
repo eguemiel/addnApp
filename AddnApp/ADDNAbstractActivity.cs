@@ -6,6 +6,8 @@ using Android.Views;
 using Android.Widget;
 using AddnApp.Base.Enums;
 using Android.Graphics;
+using Android.Views.InputMethods;
+using Android.Content;
 
 namespace AddnApp
 {
@@ -100,6 +102,16 @@ namespace AddnApp
         {
             RunOnUiThread(() =>
             Loading.Visibility = ViewStates.Gone);
+        }
+
+        public void CloseSoftKeyobard()
+        {
+            View view = this.CurrentFocus;
+            if (view != null)
+            {
+                InputMethodManager imm = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+                imm.HideSoftInputFromWindow(view.WindowToken, HideSoftInputFlags.None);
+            }
         }
     }
 }

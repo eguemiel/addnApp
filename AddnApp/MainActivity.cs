@@ -37,6 +37,7 @@ namespace AddnApp
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
 
             navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
+            Navigate<HomeFragment>();
         }
 
         private void NavigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
@@ -50,7 +51,7 @@ namespace AddnApp
                     wizard.Data = new RegistroDeReforma();
                     break;
                 case Resource.Id.nav_sair:
-                 StartActivity(typeof(LoginActivity));
+                    StartActivity(typeof(LoginActivity));
                     Finish();
                     break;
                 case Resource.Id.nav_fechar:

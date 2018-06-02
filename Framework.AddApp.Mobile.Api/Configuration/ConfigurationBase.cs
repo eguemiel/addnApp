@@ -9,8 +9,9 @@ namespace Framework.AddApp.Mobile.Api.Configuration
         public static ConfigurationBase Instance { get; protected set; }
 
         public string ApiUrl { get; private set; }
-        public string UserId { get; private set; }
-        public string Password { get; private set; }
+        public string UserIdBD { get; private set; }
+        public string PasswordBD { get; private set; } 
+        public string UserAPP { get; set; }
 
         protected abstract void SetValues(IDictionary<string, string> values);
 
@@ -33,8 +34,8 @@ namespace Framework.AddApp.Mobile.Api.Configuration
         private void SetThisValues(IDictionary<string, string> values)
         {
             ApiUrl = ReadString(values, "ApiUrl");
-            UserId = ReadString(values, "UserId");
-            Password = ReadString(values, "Password");
+            UserIdBD = ReadString(values, "UserId");
+            PasswordBD = ReadString(values, "Password");
 
             SetValues(values);
         }

@@ -5,3 +5,4 @@ AddnApp/bin/Debug
 packages/
 AddnAppDB/obj/
 Framework.AddApp.Mobile.Api/obj/
+Framework.AddApp.Mobile.Api/bin/Release/netstandard2.0/Framework.AddApp.Mobile.deps.json

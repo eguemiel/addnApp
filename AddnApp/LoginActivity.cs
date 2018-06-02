@@ -61,8 +61,9 @@ namespace AddnApp
                             }
                             else
                             {
-                                if (true)//Login(EditUser.Text, EditSenha.Text))
+                                if (true) // Login(EditUser.Text, EditSenha.Text))
                                 {
+                                    ConfigurationBase.Instance.UserAPP = EditUser.Text;
                                     StartActivity(typeof(MainActivity));
                                     Finish();
                                 }
@@ -103,9 +104,9 @@ namespace AddnApp
                 {
                     User = EditUser.Text,
                     Password = EditSenha.Text,
-                    PasswordBD = ConfigurationBase.Instance.Password,
+                    PasswordBD = ConfigurationBase.Instance.PasswordBD,
                     Url = ConfigurationBase.Instance.ApiUrl,
-                    UserId = ConfigurationBase.Instance.UserId
+                    UserId = ConfigurationBase.Instance.UserIdBD
                 });
 
                 return response.Success;

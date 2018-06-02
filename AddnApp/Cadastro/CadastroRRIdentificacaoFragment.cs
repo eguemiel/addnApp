@@ -49,11 +49,12 @@ namespace AddnApp.Cadastro
         {
             if (string.IsNullOrEmpty(txtRR.Text) || string.IsNullOrEmpty(txtItem.Text))
             {
-
+                Program.Main.ShowMessage("Preencha as informações para realizar a busca");
             }
             else
             {
                 ProcessRRNumber(new RegistroDeReforma { NumeroRR = txtRR.Text, NumeroItem = txtItem.Text });
+                Program.Main.CloseSoftKeyobard();
             }
         }       
 
@@ -72,9 +73,9 @@ namespace AddnApp.Cadastro
                     var request = new RrRequest();
                     request.Item = Convert.ToInt32(registroDeReforma.NumeroItem);
                     request.Registro = Convert.ToInt32(registroDeReforma.NumeroRR);
-                    request.PasswordBD = ConfigurationBase.Instance.Password;
+                    request.PasswordBD = ConfigurationBase.Instance.PasswordBD;
                     request.Url = ConfigurationBase.Instance.ApiUrl;
-                    request.UserId = ConfigurationBase.Instance.UserId;
+                    request.UserId = ConfigurationBase.Instance.UserIdBD;
                     response = RrApi.Instance.GetRr(request);
 
                     }
@@ -107,6 +108,7 @@ namespace AddnApp.Cadastro
             Item.NotaFiscal = response.NumeroNF;
             Item.NumeroItem = txtItem.Text;
             Item.NumeroRR = txtRR.Text;
+            Item.DescricaoRR = response.RR;
             Item.Cidade = response.Cidade;
             Item.NomeFantasia = response.NomeFantasia;
         }

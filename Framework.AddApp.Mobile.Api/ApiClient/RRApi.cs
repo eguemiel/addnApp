@@ -27,6 +27,29 @@ namespace Framework.AddApp.Mobile.ApiClient
             return response;
         }
 
-        
+        public ObservationResponse GetIdObservacao(ObservationRequest model)
+        {
+            var command = string.Format("select max(itemobs) as ultimo from obsrr where registro={0} and item={1} and parte = 0", model.Registro, model.Item);
+
+            var response = RrBD.GetIdObservacao(command, model.UserId, model.PasswordBD, model.Url);
+
+            return response;
+        }
+
+        public bool InsertObservacao(ObservationRequest model)
+        {
+            var command = string.Format("insert into obsrr values({0}, {1}, 0, {2}, '{3}', '{4}', '{5}', '{6}')", 
+                                        model.Registro, 
+                                        model.Item, 
+                                        model.IdObservacao, 
+                                        model.Texto, 
+                                        DateTime.Today.ToShortDateString(), 
+                                        DateTime.Today.ToShortTimeString(), 
+                                        model.Usuario);            
+            var response = RrBD.InsertObservacao(command, model.UserId, model.PasswordBD, model.Url);
+
+            return response;
+        }
+
     }
 }

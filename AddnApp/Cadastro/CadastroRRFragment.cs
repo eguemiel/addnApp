@@ -142,18 +142,18 @@ namespace AddnApp.Cadastro
                 //Get the SmbFile specifying the file name to be created.
 
                 var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
-                var fullClientName = registroDeReforma.NomeCliente;
-                var apelido = registroDeReforma.NomeFantasia;
-                var cityName = registroDeReforma.Cidade;
+                var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
+                var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
+                var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
                 var dateRR = DateTime.Parse(registroDeReforma.DataCadastro);
                 var nf = registroDeReforma.NotaFiscal;
                 var rr = registroDeReforma.DescricaoRR;
-                var eqDesc = registroDeReforma.Equipamento;
+                var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
                 var smbPath = "smb://192.168.0.244/Clientes/";
                 var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}",
                                             firstLetterClient, fullClientName, apelido,
-                                            cityName, dateRR.Year, nf, rr, eqDesc );
+                                            cityName, dateRR.Year, nf, rr, eqDesc);
 
                 var fileName = string.Format("{0}.{1}",DateTime.Now.ToString().Replace('/','_').Replace(':','_').Replace(' ', '_'),"jpg");
 

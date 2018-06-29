@@ -191,13 +191,15 @@ namespace AddnApp.Cadastro
 
             if (imageBitmap.Width > imageBitmap.Height)
             {
-                width = 1920;
-                height = 1080;
+                var percent = 1920 / imageBitmap.Width;
+                width = imageBitmap.Width * percent;
+                height = imageBitmap.Height * percent;
             }
             else
             {
-                width = 1080;
-                height = 1920;
+                var percent = 1080 / imageBitmap.Width;
+                width = imageBitmap.Width * percent;
+                height = imageBitmap.Height * percent;
             }
 
             imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, width, height, true);

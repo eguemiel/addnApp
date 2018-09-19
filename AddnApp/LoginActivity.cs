@@ -49,8 +49,9 @@ namespace AddnApp
                     {
                         try
                         {
-                            //RunOnUiThread(() => { EditUser.Text = "junior"; });
-                            //RunOnUiThread(() => { EditSenha.Text = "1234"; });                            
+                            //TO DO
+                            RunOnUiThread(() => { EditUser.Text = "junior"; });
+                            RunOnUiThread(() => { EditSenha.Text = "1234"; });                            
                             if (string.IsNullOrEmpty(EditUser.Text) || string.IsNullOrEmpty(EditSenha.Text))
                             {
                                 if (string.IsNullOrEmpty(EditUser.Text))
@@ -61,7 +62,8 @@ namespace AddnApp
                             }
                             else
                             {
-                                if (Login(EditUser.Text, EditSenha.Text))
+                                //TO DO
+                                if (true)//Login(EditUser.Text, EditSenha.Text))
                                 {
                                     ConfigurationBase.Instance.UserAPP = EditUser.Text;
                                     StartActivity(typeof(MainActivity));

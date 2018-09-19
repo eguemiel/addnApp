@@ -8,6 +8,7 @@ using Android.Views;
 using System;
 using AddnApp.Cadastro;
 using AddnApp.Entities;
+using Framework.AddApp.Mobile.Api.Configuration;
 
 namespace AddnApp
 {
@@ -35,6 +36,10 @@ namespace AddnApp
 
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+
+            View view = navigationView.GetHeaderView(0);
+            TextView userNavHeader = view.FindViewById<TextView>(Resource.Id.textViewHeaderUser);
+            userNavHeader.Text = ConfigurationBase.Instance.UserAPP;
 
             navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
             Navigate<HomeFragment>();

@@ -72,10 +72,15 @@ namespace AddnApp.Cadastro
         {
             try
             {
-                Intent takePicture = new Intent(MediaStore.ActionImageCapture);
-                File = FileProvider.GetUriForFile(Context, Context.ApplicationInfo.PackageName + ".provider", GetOutputMediaFile());
-                takePicture.PutExtra(MediaStore.ExtraOutput, File);
-                StartActivityForResult(takePicture, 0);
+                if (Item.ListaDeImagens != null && Item.ListaDeImagens.Count == 10)
+                    Program.Main.ShowMessage("É possível selecionar no máximo 10 imagens", ToastLength.Short, Base.Enums.ToastMessageType.Warning);
+                else
+                {
+                    Intent takePicture = new Intent(MediaStore.ActionImageCapture);
+                    File = FileProvider.GetUriForFile(Context, Context.ApplicationInfo.PackageName + ".provider", GetOutputMediaFile());
+                    takePicture.PutExtra(MediaStore.ExtraOutput, File);
+                    StartActivityForResult(takePicture, 0);
+                }
             }
             catch (Exception ex)
             {
@@ -86,15 +91,23 @@ namespace AddnApp.Cadastro
 
         private void BtnPictureGalery_Click(object sender, EventArgs e)
         {
-            Intent pickPhoto = new Intent(Intent.ActionPick, MediaStore.Images.Media.ExternalContentUri);
-            StartActivityForResult(pickPhoto, 1);
+            if (Item.ListaDeImagens != null && Item.ListaDeImagens.Count == 10)
+                Program.Main.ShowMessage("É possível selecionar no máximo 10 imagens", ToastLength.Short, Base.Enums.ToastMessageType.Warning);
+            else
+            {
+                Intent pickPhoto = new Intent(Intent.ActionGetContent, MediaStore.Images.Media.ExternalContentUri);
+                pickPhoto.SetType("image/*");
+                pickPhoto.PutExtra(Intent.ExtraAllowMultiple, true);
+
+                StartActivityForResult(pickPhoto, 1);
+            }
         }
 
         private void ImageGrid_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var intent = new Intent(this.Activity, typeof(ImageDetailRRActivity));
-            BitmapCadastroRR = Item.ListaDeImagens[e.Position];           
-            
+            BitmapCadastroRR = Item.ListaDeImagens[e.Position];
+
             StartActivity(intent);
         }
 
@@ -116,7 +129,10 @@ namespace AddnApp.Cadastro
                 case 0:
                     if (resultCode == (int)Result.Ok)
                     {
-                        Item.ListaDeImagens.Add(GetImageBitmapFromUrl(File, Context));
+                        if (Item.ListaDeImagens.Count == 10)
+                            Program.Main.ShowMessage("É possível selecionar no máximo 10 imagens", ToastLength.Short, Base.Enums.ToastMessageType.Warning);
+                        else
+                            Item.ListaDeImagens.Add(GetImageBitmapFromUrl(File, Context));
                     }
 
                     break;
@@ -125,9 +141,30 @@ namespace AddnApp.Cadastro
                     {
                         if (data != null)
                         {
-                            Android.Net.Uri selectedImage = data.Data;
-                            
-                            Item.ListaDeImagens.Add(GetImageBitmapFromUrl(selectedImage, Context));
+                            if (data.ClipData != null)
+                            {
+                                int count = data.ClipData.ItemCount;
+                                for (int i = 0; i < count; i++)
+                                {
+                                    if(i == 10 || Item.ListaDeImagens.Count == 10)
+                                    {
+                                        Program.Main.ShowMessage("É possível selecionar no máximo 10 imagens", ToastLength.Short, Base.Enums.ToastMessageType.Warning);
+                                        break;
+                                    }
+                                    Android.Net.Uri selectedImage = data.ClipData.GetItemAt(i).Uri;
+                                    Item.ListaDeImagens.Add(GetImageBitmapFromUrl(selectedImage, Context));
+                                }
+                            }
+                            else if (data.Data != null)
+                            {
+                                if (Item.ListaDeImagens.Count == 10)
+                                    Program.Main.ShowMessage("É possível selecionar no máximo 10 imagens", ToastLength.Short, Base.Enums.ToastMessageType.Warning);
+                                else
+                                {
+                                    Android.Net.Uri selectedImage = data.Data;
+                                    Item.ListaDeImagens.Add(GetImageBitmapFromUrl(selectedImage, Context));
+                                }
+                            }
                         }
                     }
                     break;
@@ -191,15 +228,15 @@ namespace AddnApp.Cadastro
 
             if (imageBitmap.Width > imageBitmap.Height)
             {
-                var percent = 1920 / imageBitmap.Width;
-                width = imageBitmap.Width * percent;
-                height = imageBitmap.Height * percent;
+                var percent = (double)1920/imageBitmap.Width;
+                width = Convert.ToInt32(imageBitmap.Width * percent);
+                height = Convert.ToInt32(imageBitmap.Height * percent);
             }
             else
             {
-                var percent = 1080 / imageBitmap.Width;
-                width = imageBitmap.Width * percent;
-                height = imageBitmap.Height * percent;
+                var percent = (double)1080/imageBitmap.Width;
+                width = Convert.ToInt32(imageBitmap.Width * percent);
+                height = Convert.ToInt32(imageBitmap.Height * percent);
             }
 
             imageBitmap = Bitmap.CreateScaledBitmap(imageBitmap, width, height, true);

@@ -1,0 +1,3 @@
+﻿Arquivo para auxiliar na manutenabilidade do APP
+
+Hoje o sistema está 

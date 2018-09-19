@@ -14,14 +14,14 @@ namespace AddnApp.Cadastro
 {
     public class CadastroRRIdentificacaoFragment : BaseWizardStepFragment
     {
-        private bool processingTag = false;
         private TextView txtRR { get; set; }
         private TextView txtClientName { get; set; }
         private TextView txtData { get; set; }
         private TextView txtEquipamentoDescription { get; set; }
         private TextView txtNroNota { get; set; }
         private TextView txtItem { get; set; }
-        private ImageButton btnFindRR { get; set; }        
+        private ImageButton btnFindRR { get; set; }
+        private ImageButton btnFindImages { get; set; }
 
         public RegistroDeReforma Item { get { return Data as RegistroDeReforma; } }
 
@@ -43,6 +43,13 @@ namespace AddnApp.Cadastro
             txtItem = FindViewById<TextView>(Resource.CadastroRR_Registro.txtItem);
             btnFindRR = FindViewById<ImageButton>(Resource.CadastroRR_Registro.findRR);
             btnFindRR.Click += BtnFindRR_Click;
+            btnFindImages = FindViewById<ImageButton>(Resource.CadastroRR_Registro.findImages);
+            btnFindImages.Click += BtnFindImages_Click; ;
+        }
+
+        private void BtnFindImages_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void BtnFindRR_Click(object sender, System.EventArgs e)

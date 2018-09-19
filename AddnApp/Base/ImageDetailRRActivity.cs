@@ -24,7 +24,7 @@ namespace AddnApp.Cadastro
 
             ImageView imageView = FindViewById<ImageView>(Resource.Id.CadastroRR_Image_Detail);
             imageView.SetImageBitmap(bitmapResized);
-        }
+        }        
 
         public Bitmap Base64ToBitmap(string base64String)
         {

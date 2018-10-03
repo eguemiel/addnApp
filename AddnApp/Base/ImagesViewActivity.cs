@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AddnApp.Base;
 using Android.App;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Util;
-using Android.Widget;
 using TiagoSantos.EnchantedViewPager;
 
 namespace AddnApp.Cadastro
@@ -28,11 +22,11 @@ namespace AddnApp.Cadastro
 
             bitmap = CadastroRRIdentificacaoFragment.ListBitmapCadastroRR;
 
-            EnchantedViewPager imageView = FindViewById<EnchantedViewPager>(Resource.Id.cadastroRRImagesView);
+            EnchantedViewPagerExtended imageView = FindViewById<EnchantedViewPagerExtended>(Resource.Id.cadastroRRImagesView);
             
             ImagesViewAdapter adapter = new ImagesViewAdapter(this, bitmap);
             imageView.Adapter = adapter;
-        }       
+        }
 
         public Bitmap Base64ToBitmap(string base64String)
         {

@@ -56,9 +56,27 @@ namespace AddnApp.Cadastro
         {
             try
             {
-                var intent = new Intent(this.Activity, typeof(ImagesViewActivity));
-                ListBitmapCadastroRR = PegarImagensServidor(Item);
-                StartActivity(intent);
+                var task = new GenericTask()
+                    .WithPreExecuteProcess((b) =>
+                    {
+                        Program.Main.ShowLoading();
+
+                    }).WithBackGroundProcess((b, t) =>
+                    {
+                        try
+                        {
+                            var intent = new Intent(this.Activity, typeof(ImagesViewActivity));
+                            ListBitmapCadastroRR = PegarImagensServidor(Item);
+                            StartActivity(intent);
+                        }
+                        catch (Exception ex)
+                        {
+                            Program.Main.ShowMessage(ex.Message, ToastLength.Long, ToastMessageType.Error);
+                        }
+                    }).WithPosExecuteProcess((b, t) =>
+                    {
+                        Program.Main.HideLoading();
+                    }).Execute();
             }
             catch (Exception ex)
             {
@@ -140,21 +158,23 @@ namespace AddnApp.Cadastro
 
             try
             {
-                var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
-                var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
-                var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
-                var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
-                var dateRR = DateTime.Now;
-                var nf = registroDeReforma.NotaFiscal;
-                var rr = registroDeReforma.DescricaoRR;
-                var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
+                //var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
+                //var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
+                //var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
+                //var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
+                //var dateRR = DateTime.Now;
+                //var nf = registroDeReforma.NotaFiscal;
+                //var rr = registroDeReforma.DescricaoRR;
+                //var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
-                var smbPath = "smb://192.168.0.244/Clientes/";
-                var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q/",
-                                            firstLetterClient, fullClientName, apelido,
-                                            cityName, dateRR.Year, nf, rr, eqDesc);
-
-                var auth2 = new NtlmPasswordAuthentication("addnbr", "suporte", "@master01");
+                var smbPath = "smb://192.168.33.102/Users/JR/Documents/DEV/Images/";
+                //var smbPath = "smb://192.168.0.244/Clientes/";
+                //var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q/",
+                //                            firstLetterClient, fullClientName, apelido,
+                //                            cityName, dateRR.Year, nf, rr, eqDesc);
+                var filePath = "E/Eguemiel Miquelin Junior -- Miquelin Jr Equipamentos/Unidade Sertãozinho/2018/" +
+                    "/NF 1234 R.R. 2344 Rosa Pilicoildal/";
+                var auth2 = new NtlmPasswordAuthentication("WORKGROUP", "juninhomiquelin@hotmail.com", "Juh2Iamah36*.D");
                 var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
 
                 //Create file.

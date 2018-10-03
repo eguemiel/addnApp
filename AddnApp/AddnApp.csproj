@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="ADDNAbstractActivity.cs" />
     <Compile Include="Base\BaseFragment.cs" />
+    <Compile Include="Base\EnchantedViewPagerExtended.cs" />
     <Compile Include="Base\Enums\ToastMessageTypeEnum.cs" />
     <Compile Include="Base\ImagesViewActivity.cs" />
     <Compile Include="Base\ImagesViewAdapter.cs" />

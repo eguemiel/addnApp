@@ -12,26 +12,22 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/addn_logo" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"    
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:id="@+id/textViewHeaderUser"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/nav_header_user_textview"/>
-
+        android:textSize="@dimen/nav_header_user_textview" />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="www.addn.com.br" />
-
 </LinearLayout>

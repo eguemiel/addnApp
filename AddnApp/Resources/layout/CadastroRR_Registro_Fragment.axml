@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minWidth="20px"
-    android:minHeight="20px">
+    android:fillViewport="true">
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:minWidth="20px"
+      android:minHeight="20px">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,34 +18,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Registro"
-            android:textAlignment="center"
-            android:imeOptions="actionSend"
-            android:inputType="number"
-            android:singleLine="true"
-            android:id="@+CadastroRR_Registro/txtRR"
-            android:layout_weight="2" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Item"
-            android:textAlignment="center"
-            android:imeOptions="actionSend"
-            android:inputType="number"
-            android:singleLine="true"
-            android:id="@+CadastroRR_Registro/txtItem"
-            android:layout_weight="4" />
-        <ImageButton
-            android:id="@+CadastroRR_Registro/findRR"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:src="@drawable/baseline_search_black_24"
-            android:tint="@color/black"
-            android:layout_weight="4" />
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Registro"
+          android:textAlignment="center"
+          android:imeOptions="actionSend"
+          android:inputType="number"
+          android:singleLine="true"
+          android:id="@+CadastroRR_Registro/txtRR"
+          android:layout_weight="2" />
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Item"
+          android:textAlignment="center"
+          android:imeOptions="actionSend"
+          android:inputType="number"
+          android:singleLine="true"
+          android:id="@+CadastroRR_Registro/txtItem"
+          android:layout_weight="4" />
+      <ImageButton
+          android:id="@+CadastroRR_Registro/findRR"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@null"
+          android:src="@drawable/baseline_search_black_24"
+          android:tint="@color/black"
+          android:layout_weight="4" />
     </LinearLayout>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -51,68 +55,69 @@
         android:layout_weight="2"
         app:cardUseCompatPadding="true"
         android:id="@+CadastroRR_Registro/damageCargView">
-        <LinearLayout
-            android:orientation="vertical"
+      <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Dados RR"
-                android:textSize="25sp"
-                android:gravity="center" />
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+CadastroRR_Registro/txtInfoClientName"
-                    android:hint="Nome do Cliente"
-                    android:editable="false" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+CadastroRR_Registro/txtInfoEquipamentDescription"
-                    android:hint="Descrição do Equipamento"
-                    android:layout_marginTop="10dp"
-                    android:editable="false" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+CadastroRR_Registro/txtInfoData"
-                    android:hint="Data RR"
-                    android:layout_marginTop="10dp"
-                    android:editable="false" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+CadastroRR_Registro/txtInfoNroNota"
-                    android:hint="Número da Nota"
-                    android:layout_marginTop="10dp"
-                    android:editable="false" />
-            </android.support.design.widget.TextInputLayout>
-            <Button
-                android:id="@+CadastroRR_Registro/findImages"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/baseline_search_black_24"
-                android:enabled="false"
-                android:visibility="invisible"
-                android:text="@string/view_images_galery" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Dados RR"
+            android:textSize="25sp"
+            android:gravity="center" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+CadastroRR_Registro/txtInfoClientName"
+              android:hint="Nome do Cliente"
+              android:editable="false" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+CadastroRR_Registro/txtInfoEquipamentDescription"
+              android:hint="Descrição do Equipamento"
+              android:layout_marginTop="10dp"
+              android:editable="false" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+CadastroRR_Registro/txtInfoData"
+              android:hint="Data RR"
+              android:layout_marginTop="10dp"
+              android:editable="false" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+CadastroRR_Registro/txtInfoNroNota"
+              android:hint="Número da Nota"
+              android:layout_marginTop="10dp"
+              android:editable="false" />
+        </android.support.design.widget.TextInputLayout>
+        <Button
+            android:id="@+CadastroRR_Registro/findImages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/baseline_search_black_24"
+            android:enabled="true"
+            android:visibility="visible"
+            android:text="@string/view_images_galery" />
+      </LinearLayout>
     </android.support.v7.widget.CardView>
-</LinearLayout>
+  </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

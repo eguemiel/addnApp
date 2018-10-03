@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#000">
-    <com.tiagosantos.enchantedviewpager.EnchantedViewPager
+    <addnapp.base.EnchantedViewPagerExtended
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cadastroRRImagesView" />

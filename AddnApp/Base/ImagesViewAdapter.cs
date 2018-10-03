@@ -41,7 +41,6 @@ namespace AddnApp.Base
 
             return mCurrentView;
         }
-
         
         override public bool IsViewFromObject(View view, Object @object)
         {

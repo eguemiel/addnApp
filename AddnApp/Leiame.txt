@@ -1,3 +1,30 @@
 ﻿Arquivo para auxiliar na manutenabilidade do APP
 
-Hoje o sistema está 
+Hoje o sistema possui:
+- Login
+- Home
+- Cadastro de RR
+
+O Login tem como Activity o LoginActivity que faz todo o processo de autenticação no BD
+Ele utiliza como interface o Resource/Layour/login.axml
+
+Assim que é feito o Login, o sistema é direcionado para Home, que é instanciado através da HomeFragment que fica 
+"sobreposta" na MainActivity
+
+Ao clicar no Menu Hamburger, é possível acessar o 'Cadastro de RR' e os Fragmentos(Fragments) utilizados são:
+AddnAppBaseWizardFragment: Herda de BaseWizardFragment, que contempla métodos que auxiliam na implementação do 
+Wizard do cadastro (Tela passo-a-passo).
+CadastroRRFragment: é a classe que herda de AddnAppBaseWizardFragment e implementa os seus métodos, além de instanciar
+os outros fragmentos (fragments) que serão utilizado no processo.
+CadastroRRIdentificaçãoFragment: É referenciada no CadastroRRFragment como um dos steps(passos) para o cadastro de 
+fotos de RR. Dentro dessa classe, existem todos os métodos necessários para a consulta do RR, validações, etc.
+CadastroRRImagemFragment: Também é referenciada no CadastroRRFragment como um dos steps(passos) para o cadastro de
+fotos de RR. Dentro dessa classe, existem todos os métodos necessários para a inicialização da câmera e também
+para a consulta e imagens na galeria.
+
+Existem ainda outros dois projetos
+- AddnAppDB: ´Camada que possui métodos que fazem as conexões com o banco de dados Oracle da Addn
+- Framework.AddnApp.Mobile: Camada de framework que possibilita a ligação entre o Projeto AddnApp e o AddnAppDB,
+onde existem vários métodos que podem ser utilizados a posteriori, caso se opte por utilizar uma API.
+
+Todas as outras informações serão adicionadas diretamente no código para facilitar o entendimento.

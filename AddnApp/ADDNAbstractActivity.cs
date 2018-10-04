@@ -11,7 +11,7 @@ using Android.Content;
 
 namespace AddnApp
 {
-
+    //CLASSE QUE IMPLEMENTA ALGUNS MÉTODOS QUE SÃO UTILIZADOS PELA PLATAFORMA EM TODAS AS VIEWS (FRAGMENTS)
     public abstract class ADDNAbstractActivity : AppCompatActivity, IAddnAppActivity
     {
         public ViewGroup Loading { get; set; }
@@ -21,11 +21,13 @@ namespace AddnApp
             throw new System.NotImplementedException();
         }
 
+        //MÉTODO UTILIZADO PARA REALIZAR A NAVEGAÇÃO ENTRE UM FRAGMENT E OUTRO
         public TFragment Navigate<TFragment>() where TFragment : BaseFragment, new()
         {
             return Navigate(new TFragment());
         }
 
+        //MÉTODO UTILIZADO PARA REALIZAR A NAVEGAÇÃO ENTRE UM FRAGMENT E OUTRO
         public TFragment Navigate<TFragment>(TFragment fragment) where TFragment : BaseFragment, new()
         {
             var tx = SupportFragmentManager.BeginTransaction();
@@ -36,11 +38,13 @@ namespace AddnApp
             return fragment;
         }
 
+        //MÉTODO UTILIZADO PARA SETAR O TITULO DO NAVIGATION BAR
         public void SetTitle(string value)
         {
             this.Title = value;
         }
 
+        //MÉTODO UTILIZADO PARA MOSTRAR MENSAGENS INFORMATIVAS NO APP
         public void ShowMessage(string message, ToastLength length = ToastLength.Short, ToastMessageType toastMessageType = ToastMessageType.InfoBlue)
         {
             RunOnUiThread(() =>
@@ -92,18 +96,21 @@ namespace AddnApp
             });
         }
 
+        //MÉTODO QUE CHAMA O LOADING PARA DEMONSTRAR O CARREGAMENTO DE ALGUMA PÁGINA
         public void ShowLoading()
         {
             RunOnUiThread(() =>
             Loading.Visibility = ViewStates.Visible);
         }
 
+        //MÉTODO QUE ESCONDE O LOADING PARA DEMONSTRAR O CARREGAMENTO DE ALGUMA PÁGINA
         public void HideLoading()
         {
             RunOnUiThread(() =>
             Loading.Visibility = ViewStates.Gone);
         }
 
+        //MÉTODO QUE ESCONDE O TECLADO QUANDO CHAMADO.
         public void CloseSoftKeyobard()
         {
             View view = this.CurrentFocus;

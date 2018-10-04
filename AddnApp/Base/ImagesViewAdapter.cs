@@ -1,43 +1,55 @@
 ﻿using System.Collections.Generic;
 using Android.Content;
+using Android.Graphics;
 using Android.Views;
+using Android.Widget;
 using Java.Lang;
 using TiagoSantos.EnchantedViewPager;
 
 namespace AddnApp.Base
 {
-    public class ImagesViewAdapter : EnchantedViewPagerAdapter<ImagesViewAdapter>
+    public class ImagesViewAdapter : EnchantedViewPagerAdapter<Bitmap>
     {
         Context Context;
-
         LayoutInflater inflater;
+        List<Bitmap> bitmapList; 
 
-        public ImagesViewAdapter(Context context, List<ImagesViewAdapter> list) : base(list)
+
+        public ImagesViewAdapter(Context context, List<Bitmap> list) : base(list)
         {
             Context = context;
             inflater = LayoutInflater.From(Context);
-            mAlbumlist = albumList;
+            bitmapList = list;
         }
 
         public override Object InstantiateItem(ViewGroup container, int position)
         {
-            if (mAlbumlist.size() == 0) return null;
+            if (bitmapList.Count == 0) return null;
 
-            int itemPosition = position % mAlbumlist.size();
+            int itemPosition = position % bitmapList.Count;
 
-            ImageView mCurrentView = (ImageView)inflater.inflate(R.layout.item_view, container, false);
+            ImageView mCurrentView = (ImageView)inflater.Inflate(Resource.Layout.item_view, container, false);
 
             BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inScaled = false;
+            opts.InScaled = false;
 
-            AlbumArt album = this.mAlbumlist.get(itemPosition);
-            Bitmap bitmap = BitmapFactory.decodeResource(Context.getResources(), album.getImageResource(), opts);
+            Bitmap bitmap = this.bitmapList[itemPosition];
 
-            mCurrentView.setImageBitmap(bitmap);
-            mCurrentView.setTag(EnchantedViewPager.ENCHANTED_VIEWPAGER_POSITION + position);
-            container.addView(mCurrentView);
+            mCurrentView.SetImageBitmap(bitmap);
+            mCurrentView.Tag = EnchantedViewPager.EnchantedViewpagerPosition + position;
+            container.AddView(mCurrentView);
 
             return mCurrentView;
+        }
+        
+        override public bool IsViewFromObject(View view, Object @object)
+        {
+            return view == @object;
+        }
+
+        public override void DestroyItem(ViewGroup container, int position, Object @object)
+        {
+            container.RemoveView((View)@object);
         }
     }
 }

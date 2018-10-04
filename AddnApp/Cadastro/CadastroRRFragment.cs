@@ -146,21 +146,19 @@ namespace AddnApp.Cadastro
                     var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
                     var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
                     var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
-                    var dateRR = DateTime.Now;
+                    var dateRR = DateTime.Parse(registroDeReforma.DataCadastro);
                     var nf = registroDeReforma.NotaFiscal;
                     var rr = registroDeReforma.DescricaoRR;
                     var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
-
-                    //TO DO
-                    var smbPath = "smb://192.168.33.102/Users/JR/Documents/DEV/Images/";
-                    var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}",
+                    var smbPath = "smb://192.168.0.244/Clientes/";
+                    var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q",
                                                 firstLetterClient, fullClientName, apelido,
                                                 cityName, dateRR.Year, nf, rr, eqDesc);
 
-                    var fileName = string.Format("{0}.{1}", DateTime.Now.ToString().Replace('/', '_').Replace(':', '_').Replace(' ', '_'), "jpg");
+                    var fileName = string.Format("{0}.{1}", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff").Replace('/', '_').Replace(':', '_').Replace(' ', '_'), "jpg");
 
-                    var auth2 = new NtlmPasswordAuthentication("WORKGROUP", "juninhomiquelin@hotmail.com", "Juh2Iamah36*.D");
+                    var auth2 = new NtlmPasswordAuthentication("addnbr", "suporte", "@master01");
                     var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
 
                     //Create file.

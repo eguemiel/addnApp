@@ -53,19 +53,8 @@ namespace Framework.AddApp.Mobile.OracleBD
                     }
                     catch (Exception ex)
                     {
-                        //TO DO
-                        rr.DataAbertura = "26/08/2018";
-                        rr.NumeroNF = 1234;
-                        rr.NomeCliente = "Eguemiel Miquelin Junior";
-                        rr.DescricaoEquipamento = "Rosa Pilicoildal";
-                        rr.NomeFantasia = "Miquelin Jr Equipamentos";
-                        rr.Cidade = "Sertãozinho";
-                        rr.RR = "2344";
-                        rr.Success = true;
-
-                        //rr.Success = false;
-                        //throw new Exception(ex.Message);
-                        return rr;
+                        rr.Success = false;
+                        throw new Exception(ex.Message);
                     }
                 }
             }

@@ -167,14 +167,13 @@ namespace AddnApp.Cadastro
                 //var rr = registroDeReforma.DescricaoRR;
                 //var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
-                var smbPath = "smb://192.168.33.102/Users/JR/Documents/DEV/Images/";
+                var smbPath = "smb://WW10BRRAO008/Users/Emiquelin/Documents/GitHub/addnApp/Images";
                 //var smbPath = "smb://192.168.0.244/Clientes/";
                 //var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q/",
                 //                            firstLetterClient, fullClientName, apelido,
                 //                            cityName, dateRR.Year, nf, rr, eqDesc);
-                var filePath = "E/Eguemiel Miquelin Junior -- Miquelin Jr Equipamentos/Unidade Sertãozinho/2018/" +
-                    "/NF 1234 R.R. 2344 Rosa Pilicoildal/";
-                var auth2 = new NtlmPasswordAuthentication("WORKGROUP", "juninhomiquelin@hotmail.com", "Juh2Iamah36*.D");
+                var filePath = "E/Eguemiel Miquelin Junior -- Miquelin Jr Equipamentos/Unidade Sertãozinho/2018/"; 
+                var auth2 = new NtlmPasswordAuthentication("TTI", "emiquelin", "Juh2Iamah36*.D");
                 var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
 
                 //Create file.

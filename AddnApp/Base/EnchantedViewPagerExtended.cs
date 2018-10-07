@@ -17,6 +17,9 @@ namespace AddnApp.Base
         {
         }
 
-        
+        public void OnSwipeFinished(int position)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

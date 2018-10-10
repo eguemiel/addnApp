@@ -13,6 +13,7 @@ using SharpCifs.Smb;
 using System.Linq;
 using TiagoSantos.EnchantedViewPager;
 using Android.Views;
+using Framework.AddApp.Mobile.Api.Configuration;
 
 namespace AddnApp.Cadastro
 {
@@ -23,8 +24,7 @@ namespace AddnApp.Cadastro
         protected ImagesViewAdapter adapter;
         protected EnchantedViewPagerExtended imageView;
         protected RegistroDeReforma registroDeReforma;
-        private int quantidadeImagens;
-        private int indexImageAtual;
+        private int quantidadeImagens;        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,7 +37,7 @@ namespace AddnApp.Cadastro
 
             if (quantidadeImagens > 0)
             {
-                bitmap = PegarImagensServidor(registroDeReforma, 0);
+                bitmap = PegarImagensServidor(registroDeReforma);
 
                 imageView = FindViewById<EnchantedViewPagerExtended>(Resource.Id.cadastroRRImagesView);                            
                 
@@ -60,7 +60,7 @@ namespace AddnApp.Cadastro
             base.OnDestroy();
         }
 
-        private List<Bitmap> PegarImagensServidor(RegistroDeReforma registroDeReforma, int indexImage)
+        private List<Bitmap> PegarImagensServidor(RegistroDeReforma registroDeReforma)
         {
             List<Bitmap> listaDeImagens = new List<Bitmap>();
             
@@ -75,20 +75,15 @@ namespace AddnApp.Cadastro
                 //var rr = registroDeReforma.DescricaoRR;
                 //var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
-                var smbPath = "smb://192.168.33.102/Users/JR/Documents/DEV/Images/";
-                //var smbPath = "smb://192.168.0.244/Clientes/";
-                //var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q/",
-                //                            firstLetterClient, fullClientName, apelido,
-                //                            cityName, dateRR.Year, nf, rr, eqDesc);
-                var filePath = "E/Eguemiel Miquelin Junior -- Miquelin Jr Equipamentos/Unidade Sertãozinho/2018/" +
-                    "/NF 1234 R.R. 2344 Rosa Pilicoildal/";
-                var auth2 = new NtlmPasswordAuthentication("WORKGROUP", "juninhomiquelin@hotmail.com", "Juh2Iamah36*.D");
+                var smbPath = ConfigurationBase.Instance.SmbPath;
+                var filePath = ConfigurationBase.Instance.FilePath;
+                var auth2 = new NtlmPasswordAuthentication(ConfigurationBase.Instance.NetworkDomain, ConfigurationBase.Instance.NetworkUser, ConfigurationBase.Instance.NetworkPassword);
                 var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
 
                 //Create file.
                 if (pathConfirm.Exists())
                 {
-                    foreach (SmbFile file in pathConfirm.ListFiles().ToList().GetRange(indexImage, indexImage + 2))
+                    foreach (SmbFile file in pathConfirm.ListFiles().ToList())
                     {
                         if (file.IsFile())
                         {
@@ -135,14 +130,9 @@ namespace AddnApp.Cadastro
                 //var rr = registroDeReforma.DescricaoRR;
                 //var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
-                var smbPath = "smb://192.168.33.102/Users/JR/Documents/DEV/Images/";
-                //var smbPath = "smb://192.168.0.244/Clientes/";
-                //var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q/",
-                //                            firstLetterClient, fullClientName, apelido,
-                //                            cityName, dateRR.Year, nf, rr, eqDesc);
-                var filePath = "E/Eguemiel Miquelin Junior -- Miquelin Jr Equipamentos/Unidade Sertãozinho/2018/" +
-                    "/NF 1234 R.R. 2344 Rosa Pilicoildal/";
-                var auth2 = new NtlmPasswordAuthentication("WORKGROUP", "juninhomiquelin@hotmail.com", "Juh2Iamah36*.D");
+                var smbPath = ConfigurationBase.Instance.SmbPath;
+                var filePath = ConfigurationBase.Instance.FilePath;
+                var auth2 = new NtlmPasswordAuthentication(ConfigurationBase.Instance.NetworkDomain, ConfigurationBase.Instance.NetworkUser, ConfigurationBase.Instance.NetworkPassword);
                 var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
 
                 //Create file.

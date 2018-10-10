@@ -151,14 +151,11 @@ namespace AddnApp.Cadastro
                     var rr = registroDeReforma.DescricaoRR;
                     var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
-                    var smbPath = "smb://192.168.0.244/Clientes/";
-                    var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q",
-                                                firstLetterClient, fullClientName, apelido,
-                                                cityName, dateRR.Year, nf, rr, eqDesc);
-
+                    var smbPath = ConfigurationBase.Instance.SmbPath;
+                    var filePath = ConfigurationBase.Instance.FilePath;
                     var fileName = string.Format("{0}.{1}", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff").Replace('/', '_').Replace(':', '_').Replace(' ', '_'), "jpg");
 
-                    var auth2 = new NtlmPasswordAuthentication("addnbr", "suporte", "@master01");
+                    var auth2 = new NtlmPasswordAuthentication(ConfigurationBase.Instance.NetworkDomain, ConfigurationBase.Instance.NetworkUser, ConfigurationBase.Instance.NetworkPassword);
                     var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
 
                     //Create file.

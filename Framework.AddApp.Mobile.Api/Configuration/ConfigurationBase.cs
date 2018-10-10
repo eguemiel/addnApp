@@ -10,7 +10,13 @@ namespace Framework.AddApp.Mobile.Api.Configuration
 
         public string ApiUrl { get; private set; }
         public string UserIdBD { get; private set; }
-        public string PasswordBD { get; private set; } 
+        public string PasswordBD { get; private set; }
+        public string NetworkUser { get; private set; }
+        public string NetworkPassword { get; private set; }
+        public string SmbPath { get; private set; }
+        public string FilePath { get; private set; }
+        public string NetworkDomain { get; private set; }
+
         public string UserAPP { get; set; }
 
         protected abstract void SetValues(IDictionary<string, string> values);
@@ -36,6 +42,11 @@ namespace Framework.AddApp.Mobile.Api.Configuration
             ApiUrl = ReadString(values, "ApiUrl");
             UserIdBD = ReadString(values, "UserId");
             PasswordBD = ReadString(values, "Password");
+            NetworkUser = ReadString(values, "NetworkUser");
+            NetworkPassword = ReadString(values, "NetworkPassword");
+            SmbPath = ReadString(values, "SmbPath");
+            FilePath = ReadString(values, "FilePath");
+            NetworkDomain = ReadString(values, "NetworkDomain");
 
             SetValues(values);
         }

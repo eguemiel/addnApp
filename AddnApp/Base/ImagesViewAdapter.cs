@@ -19,7 +19,7 @@ namespace AddnApp.Base
         {
             Context = context;
             inflater = LayoutInflater.From(Context);
-            bitmapList = list;
+            bitmapList = list;            
         }
 
         public override Object InstantiateItem(ViewGroup container, int position)
@@ -42,6 +42,16 @@ namespace AddnApp.Base
             return mCurrentView;
         }
         
+        public void AddItem(Bitmap image)
+        {
+            this.bitmapList.Add(image);
+        }
+
+        public override int GetItemPosition(Object @object)
+        {
+            return base.GetItemPosition(@object);
+        }
+
         override public bool IsViewFromObject(View view, Object @object)
         {
             return view == @object;

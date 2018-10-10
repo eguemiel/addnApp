@@ -14,6 +14,7 @@ using SharpCifs.Smb;
 using System.IO;
 using Android.Graphics;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace AddnApp.Cadastro
 {
@@ -27,9 +28,7 @@ namespace AddnApp.Cadastro
         private TextView txtItem { get; set; }
         private ImageButton btnFindRR { get; set; }
         private Button btnFindImages { get; set; }
-        public static List<Bitmap> ListBitmapCadastroRR;
         public RegistroDeReforma Item { get { return Data as RegistroDeReforma; } }
-
 
         protected override int ViewId => Resource.Layout.CadastroRR_Registro_Fragment;
 
@@ -66,7 +65,7 @@ namespace AddnApp.Cadastro
                         try
                         {
                             var intent = new Intent(this.Activity, typeof(ImagesViewActivity));
-                            ListBitmapCadastroRR = PegarImagensServidor(Item);
+                            intent.PutExtra("RegistroDeReforma", JsonConvert.SerializeObject(Item));
                             StartActivity(intent);
                         }
                         catch (Exception ex)
@@ -152,63 +151,6 @@ namespace AddnApp.Cadastro
             Item.NomeFantasia = response.NomeFantasia;
         }
 
-        private List<Bitmap> PegarImagensServidor(RegistroDeReforma registroDeReforma)
-        {
-            List<Bitmap> listaDeImagens = new List<Bitmap>();
-
-            try
-            {
-                //var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
-                //var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
-                //var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
-                //var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
-                //var dateRR = DateTime.Now;
-                //var nf = registroDeReforma.NotaFiscal;
-                //var rr = registroDeReforma.DescricaoRR;
-                //var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
-
-                var smbPath = "smb://WW10BRRAO008/Users/Emiquelin/Documents/GitHub/addnApp/Images";
-                //var smbPath = "smb://192.168.0.244/Clientes/";
-                //var filePath = string.Format("{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q/",
-                //                            firstLetterClient, fullClientName, apelido,
-                //                            cityName, dateRR.Year, nf, rr, eqDesc);
-                var filePath = "E/Eguemiel Miquelin Junior -- Miquelin Jr Equipamentos/Unidade Sertãozinho/2018/"; 
-                var auth2 = new NtlmPasswordAuthentication("TTI", "emiquelin", "Juh2Iamah36*.D");
-                var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
-
-                //Create file.
-                if (pathConfirm.Exists())
-                {
-                    foreach (SmbFile file in pathConfirm.ListFiles())
-                    {
-                        if (file.IsFile())
-                        {
-                            //Get readable stream.
-                            var readStream = file.GetInputStream();
-
-                            //Create reading buffer.
-                            var memStream = new MemoryStream();
-
-                            //Get bytes.
-                            ((Stream)readStream).CopyTo(memStream);
-
-                            //Dispose readable stream.
-                            readStream.Dispose();
-
-                            byte[] byteImage = memStream.ToArray();
-                            listaDeImagens.Add(BitmapFactory.DecodeByteArray(byteImage, 0, byteImage.Length));
-                        }
-                    }
-                }
-                else
-                    throw new Exception("Diretório não encontrado");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return listaDeImagens;
-        }
+        
     }
 }

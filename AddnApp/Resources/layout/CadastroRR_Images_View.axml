@@ -5,7 +5,21 @@
     android:orientation="vertical"
     android:background="#000">
     <addnapp.base.EnchantedViewPagerExtended
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/cadastroRRImagesView" />
+        android:id="@+id/cadastroRRImagesView" />  
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/previousImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:src="@drawable/baseline_navigate_before_black_24"
+        android:layout_margin="16dp" />
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/nextImage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end|bottom"
+      android:src="@drawable/baseline_navigate_next_black_24"
+      android:layout_margin="16dp" />
 </FrameLayout>

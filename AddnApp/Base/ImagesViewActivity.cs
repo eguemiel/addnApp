@@ -115,14 +115,14 @@ namespace AddnApp.Cadastro
 
             try
             {
-                //var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
-                //var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
-                //var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
-                //var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
-                //var dateRR = DateTime.Now;
-                //var nf = registroDeReforma.NotaFiscal;
-                //var rr = registroDeReforma.DescricaoRR;
-                //var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
+                var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
+                var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
+                var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
+                var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
+                var dateRR = DateTime.Now;
+                var nf = registroDeReforma.NotaFiscal;
+                var rr = registroDeReforma.DescricaoRR;
+                var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
                 var smbPath = ConfigurationBase.Instance.SmbPath;
                 var filePath = ConfigurationBase.Instance.FilePath;
@@ -170,14 +170,14 @@ namespace AddnApp.Cadastro
             int quantidadeImagens = 0;
             try
             {
-                //var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
-                //var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
-                //var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
-                //var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
-                //var dateRR = DateTime.Now;
-                //var nf = registroDeReforma.NotaFiscal;
-                //var rr = registroDeReforma.DescricaoRR;
-                //var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
+                var firstLetterClient = registroDeReforma.NomeCliente.Substring(0, 1);
+                var fullClientName = registroDeReforma.NomeCliente.RemoveSpecialCaracters();
+                var apelido = registroDeReforma.NomeFantasia.RemoveSpecialCaracters();
+                var cityName = registroDeReforma.Cidade.RemoveSpecialCaracters();
+                var dateRR = DateTime.Now;
+                var nf = registroDeReforma.NotaFiscal;
+                var rr = registroDeReforma.DescricaoRR;
+                var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
                 var smbPath = ConfigurationBase.Instance.SmbPath;
                 var filePath = ConfigurationBase.Instance.FilePath;

@@ -205,10 +205,10 @@ namespace AddnApp.Cadastro
             File storageDir = new File(Android.OS.Environment.GetExternalStoragePublicDirectory(
                     Android.OS.Environment.DirectoryDcim), "Camera");
             File image = Java.IO.File.CreateTempFile(
-                    imageFileName,  /* prefix */
-                    ".jpg",         /* suffix */
-                    storageDir      /* directory */
-            );
+                    imageFileName,
+                    ".jpg",
+                    storageDir
+                    );
 
             // Save a file: path for use with ACTION_VIEW intents
             CurrentPhotoPath = "file:" + image.AbsolutePath;

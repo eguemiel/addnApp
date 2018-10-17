@@ -13,6 +13,9 @@ using SharpCifs.Smb;
 using System.Linq;
 using Framework.AddApp.Mobile.Api.Configuration;
 using Android.Support.Design.Widget;
+using AddnApp.Helpers;
+using Android.Widget;
+using Android.Views;
 
 namespace AddnApp.Cadastro
 {
@@ -27,12 +30,16 @@ namespace AddnApp.Cadastro
         protected RegistroDeReforma registroDeReforma;
         private int quantidadeImagens;
         private int indexAtual;
+        public ViewGroup Loading { get; set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.CadastroRR_Images_View);
+
+            Loading = FindViewById<ViewGroup>(Resource.Id.loadingImage);
+            Loading.BringToFront();
 
             registroDeReforma = JsonConvert.DeserializeObject<RegistroDeReforma>(Intent.GetStringExtra("RegistroDeReforma"));
             quantidadeImagens = PegaQuantidadeImagensServidor(registroDeReforma);
@@ -63,37 +70,80 @@ namespace AddnApp.Cadastro
 
         private void PreviusImage_Click(object sender, EventArgs e)
         {
-            if (indexAtual > 0)
-            {
-                bitmap = new List<Bitmap>();
-                bitmap.Add(PegarImagensServidor(registroDeReforma, indexAtual - 1));
 
-                imageView = FindViewById<EnchantedViewPagerExtended>(Resource.Id.cadastroRRImagesView);
+            var task = new GenericTask()
+                   .WithPreExecuteProcess((b) =>
+                   {
+                       ShowLoading();
 
-                adapter = new ImagesViewAdapter(this, bitmap);
-                imageView.Adapter = adapter;
-            }
-            else
-                previusImage.Enabled = false;
+                   }).WithBackGroundProcess((b, t) =>
+                   {
+                       try
+                       {
+                           if (indexAtual > 0)
+                           {
+                               RunOnUiThread(() =>
+                               {
+                                   bitmap = new List<Bitmap>();
+                                   bitmap.Add(PegarImagensServidor(registroDeReforma, indexAtual - 1));
+
+                                   imageView = FindViewById<EnchantedViewPagerExtended>(Resource.Id.cadastroRRImagesView);
+
+                                   adapter = new ImagesViewAdapter(this, bitmap);
+                                   imageView.Adapter = adapter;
+                               });
+                           }
+                           else
+                               previusImage.Enabled = false;
+                       }
+                       catch (Exception ex)
+                       {
+                           Program.Main.ShowMessage(ex.Message, ToastLength.Long, Base.Enums.ToastMessageType.Error);
+                       }
+                   }).WithPosExecuteProcess((b, t) =>
+                   {
+                       HideLoading();
+                   }).Execute();
 
         }
 
+
         private void NextImage_Click(object sender, EventArgs e)
         {
-            if (indexAtual + 1 < quantidadeImagens)
-            {
-                bitmap = new List<Bitmap>();
-                bitmap.Add(PegarImagensServidor(registroDeReforma, indexAtual + 1));
+            var task = new GenericTask()
+                   .WithPreExecuteProcess((b) =>
+                   {
+                       ShowLoading();
 
-                imageView = FindViewById<EnchantedViewPagerExtended>(Resource.Id.cadastroRRImagesView);
+                   }).WithBackGroundProcess((b, t) =>
+                   {
+                       try
+                       {
+                           if (indexAtual + 1 < quantidadeImagens)
+                           {
+                               RunOnUiThread(() =>
+                               {
+                                   bitmap = new List<Bitmap>();
+                                   bitmap.Add(PegarImagensServidor(registroDeReforma, indexAtual + 1));
 
-                adapter = new ImagesViewAdapter(this, bitmap);
-                imageView.Adapter = adapter;
-                previusImage.Enabled = true;
-            }
-            else 
-                nextImage.Enabled = false;
+                                   imageView = FindViewById<EnchantedViewPagerExtended>(Resource.Id.cadastroRRImagesView);
 
+                                   adapter = new ImagesViewAdapter(this, bitmap);
+                                   imageView.Adapter = adapter;
+                                   previusImage.Enabled = true;
+                               });
+                           }
+                           else
+                               nextImage.Enabled = false;
+                       }
+                       catch (Exception ex)
+                       {
+                           Program.Main.ShowMessage(ex.Message, ToastLength.Long, Base.Enums.ToastMessageType.Error);
+                       }
+                   }).WithPosExecuteProcess((b, t) =>
+                   {   
+                       HideLoading();
+                   }).Execute();
         }
 
         public Bitmap Base64ToBitmap(string base64String)
@@ -125,7 +175,9 @@ namespace AddnApp.Cadastro
                 var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
                 var smbPath = ConfigurationBase.Instance.SmbPath;
-                var filePath = ConfigurationBase.Instance.FilePath;
+                var filePath = string.Format(ConfigurationBase.Instance.FilePath, 
+                                                firstLetterClient, fullClientName, apelido,
+                                                cityName, dateRR.Year, nf, rr, eqDesc.TrimEnd());
                 var auth2 = new NtlmPasswordAuthentication(ConfigurationBase.Instance.NetworkDomain, ConfigurationBase.Instance.NetworkUser, ConfigurationBase.Instance.NetworkPassword);
                 var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
 
@@ -158,7 +210,7 @@ namespace AddnApp.Cadastro
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                Program.Main.ShowMessage(ex.Message, Android.Widget.ToastLength.Long, Base.Enums.ToastMessageType.Error);
             }
 
             return imagem;
@@ -180,9 +232,11 @@ namespace AddnApp.Cadastro
                 var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
                 var smbPath = ConfigurationBase.Instance.SmbPath;
-                var filePath = ConfigurationBase.Instance.FilePath;
+                var filePath = string.Format(ConfigurationBase.Instance.FilePath,
+                                                firstLetterClient, fullClientName, apelido,
+                                                cityName, dateRR.Year, nf, rr, eqDesc.TrimEnd());
                 var auth2 = new NtlmPasswordAuthentication(ConfigurationBase.Instance.NetworkDomain, ConfigurationBase.Instance.NetworkUser, ConfigurationBase.Instance.NetworkPassword);
-                var pathConfirm = new SmbFile(string.Format("{0}/{1}", smbPath, filePath), auth2);
+                var pathConfirm = new SmbFile(string.Format("{0}{1}", smbPath, filePath), auth2);
 
                 //Create file.
                 if (pathConfirm.Exists())
@@ -194,10 +248,23 @@ namespace AddnApp.Cadastro
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                Program.Main.ShowMessage(ex.Message, Android.Widget.ToastLength.Long, Base.Enums.ToastMessageType.Error);
             }
 
             return quantidadeImagens;
+        }
+
+        public void ShowLoading()
+        {
+            RunOnUiThread(() =>
+            Loading.Visibility = ViewStates.Visible);
+        }
+
+
+        private void HideLoading()
+        {
+            RunOnUiThread(() =>
+            Loading.Visibility = ViewStates.Gone);
         }
     }
 }

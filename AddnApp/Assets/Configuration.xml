@@ -5,7 +5,7 @@
   <add key="Password" value="mult"></add>
   <!--PRODUCTION-->
   <add key="SmbPath" value="smb://192.168.0.244/Clientes/"></add>
-  <add key="WorkGroup" value="addnbr"></add>
+  <add key="NetworkDomain" value="addnbr"></add>
   <add key="NetworkUser" value="suporte"></add>
   <add key="NetworkPassword" value="@master01"></add>
   <add key="FilePath" value="{0}/{1} -- {2}/Unidade {3}/{4}/NF {5} R.R. {6} {7}/Fotos C.Q/"></add>

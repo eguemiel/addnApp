@@ -152,7 +152,9 @@ namespace AddnApp.Cadastro
                     var eqDesc = registroDeReforma.Equipamento.RemoveSpecialCaracters();
 
                     var smbPath = ConfigurationBase.Instance.SmbPath;
-                    var filePath = ConfigurationBase.Instance.FilePath;
+                    var filePath = string.Format(ConfigurationBase.Instance.FilePath, 
+                                                firstLetterClient, fullClientName, apelido,
+                                                cityName, dateRR.Year, nf, rr, eqDesc.TrimEnd());
                     var fileName = string.Format("{0}.{1}", DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff").Replace('/', '_').Replace(':', '_').Replace(' ', '_'), "jpg");
 
                     var auth2 = new NtlmPasswordAuthentication(ConfigurationBase.Instance.NetworkDomain, ConfigurationBase.Instance.NetworkUser, ConfigurationBase.Instance.NetworkPassword);
